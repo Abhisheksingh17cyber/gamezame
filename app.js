@@ -2,8 +2,8 @@ import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js
 
 // ⚠️ IMPORTANT: Replace these with your Supabase credentials
 // Get them from: https://supabase.com/dashboard/project/_/settings/api
-const SUPABASE_URL = 'YOUR_SUPABASE_URL_HERE'
-const SUPABASE_KEY = 'YOUR_SUPABASE_ANON_KEY_HERE'
+const SUPABASE_URL = 'https://ehviqqjhbrcszfkyozqq.supabase.co'
+const SUPABASE_KEY ='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVodmlxcWpoYnJjc3pma3lvenFxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njc3OTM3MTksImV4cCI6MjA4MzM2OTcxOX0.8TlD3ybOwJ5z1ZawfCVACVJzxHNCPr_s_lW1w5S6ANs'
 
 // Initialize Supabase client
 const supabase = createClient(SUPABASE_URL, SUPABASE_KEY)
