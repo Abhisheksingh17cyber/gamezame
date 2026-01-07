@@ -7,10 +7,15 @@
     "dev": "npx serve .",
     "build": "echo 'No build step required'"
   },
-  "keywords": ["games", "download", "free"],
+  "keywords": [
+    "games",
+    "download",
+    "free"
+  ],
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "@supabase/supabase-js": "^2.39.0"
+    "@supabase/supabase-js": "^2.39.0",
+    "@vercel/analytics": "^1.6.1"
   }
 }

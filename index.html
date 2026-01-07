@@ -3,25 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GameZame - Free Game Downloads</title>
+    <title>GameZame - Free Game Downloads | Play Premium Games Free</title>
+    <meta name="description" content="Download and play premium PC games for free. Browse our collection of action, adventure, RPG, and more!">
     <link rel="stylesheet" href="style.css">
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎮</text></svg>">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
     <!-- Auth Section -->
     <div id="auth-section" class="hidden">
+        <div class="auth-background">
+            <div class="floating-shapes">
+                <div class="shape shape-1"></div>
+                <div class="shape shape-2"></div>
+                <div class="shape shape-3"></div>
+            </div>
+        </div>
         <div class="auth-container">
             <div class="auth-header">
-                <h1>🎮 GameZame</h1>
-                <p>Your Free Gaming Hub</p>
+                <div class="logo-icon">🎮</div>
+                <h1>GameZame</h1>
+                <p>Your Premium Free Gaming Hub</p>
             </div>
             <div id="login-form">
-                <h2>Welcome Back</h2>
-                <input type="email" id="email" placeholder="Email Address" required>
-                <input type="password" id="password" placeholder="Password" required>
-                <button class="btn-primary" onclick="login()">Login</button>
-                <button class="btn-secondary" onclick="signup()">Create Account</button>
-                <p class="auth-hint">Sign up to access all features!</p>
+                <h2>Welcome Back! 👋</h2>
+                <div class="input-group">
+                    <span class="input-icon">📧</span>
+                    <input type="email" id="email" placeholder="Email Address" required>
+                </div>
+                <div class="input-group">
+                    <span class="input-icon">🔒</span>
+                    <input type="password" id="password" placeholder="Password" required>
+                </div>
+                <button class="btn-primary" onclick="login()">🚀 Login</button>
+                <button class="btn-secondary" onclick="signup()">✨ Create Account</button>
+                <p class="auth-hint">🎁 Sign up to unlock thousands of free games!</p>
             </div>
         </div>
     </div>
@@ -30,10 +46,16 @@
     <div id="app" class="hidden">
         <header>
             <div class="header-content">
-                <h1>🎮 GameZame</h1>
+                <div class="logo-section">
+                    <div class="logo-badge">🎮</div>
+                    <h1>GameZame</h1>
+                </div>
                 <div class="user-info">
-                    <span id="user-email"></span>
-                    <button class="btn-logout" onclick="logout()">Logout</button>
+                    <div class="user-badge">
+                        <span class="user-icon">👤</span>
+                        <span id="user-email"></span>
+                    </div>
+                    <button class="btn-logout" onclick="logout()">🚪 Logout</button>
                 </div>
             </div>
         </header>
