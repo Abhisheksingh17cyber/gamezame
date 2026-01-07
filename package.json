@@ -1,0 +1,16 @@
+{
+  "name": "gamezame",
+  "version": "1.0.0",
+  "description": "Free game download platform",
+  "main": "index.html",
+  "scripts": {
+    "dev": "npx serve .",
+    "build": "echo 'No build step required'"
+  },
+  "keywords": ["games", "download", "free"],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@supabase/supabase-js": "^2.39.0"
+  }
+}

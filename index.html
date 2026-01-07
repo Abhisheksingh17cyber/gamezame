@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GameZame - Free Game Downloads</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎮</text></svg>">
+</head>
+<body>
+    <!-- Auth Section -->
+    <div id="auth-section" class="hidden">
+        <div class="auth-container">
+            <div class="auth-header">
+                <h1>🎮 GameZame</h1>
+                <p>Your Free Gaming Hub</p>
+            </div>
+            <div id="login-form">
+                <h2>Welcome Back</h2>
+                <input type="email" id="email" placeholder="Email Address" required>
+                <input type="password" id="password" placeholder="Password" required>
+                <button class="btn-primary" onclick="login()">Login</button>
+                <button class="btn-secondary" onclick="signup()">Create Account</button>
+                <p class="auth-hint">Sign up to access all features!</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main App -->
+    <div id="app" class="hidden">
+        <header>
+            <div class="header-content">
+                <h1>🎮 GameZame</h1>
+                <div class="user-info">
+                    <span id="user-email"></span>
+                    <button class="btn-logout" onclick="logout()">Logout</button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Admin Panel -->
+        <div id="admin-panel" class="hidden">
+            <div class="admin-container">
+                <h3>⚡ Admin Panel - Add New Game</h3>
+                <form id="admin-form" onsubmit="event.preventDefault(); addGame();">
+                    <div class="form-group">
+                        <label for="game-title">Game Title *</label>
+                        <input type="text" id="game-title" placeholder="e.g., Minecraft" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="game-description">Description</label>
+                        <textarea id="game-description" placeholder="Brief description of the game..." rows="4"></textarea>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="download-url">Download URL *</label>
+                            <input type="url" id="download-url" placeholder="https://..." required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="image-url">Image URL</label>
+                            <input type="url" id="image-url" placeholder="https://...">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="category">Category</label>
+                        <select id="category">
+                            <option value="Action">Action</option>
+                            <option value="Adventure">Adventure</option>
+                            <option value="RPG">RPG</option>
+                            <option value="Strategy">Strategy</option>
+                            <option value="Puzzle">Puzzle</option>
+                            <option value="Simulation">Simulation</option>
+                            <option value="Sports">Sports</option>
+                            <option value="Racing">Racing</option>
+                            <option value="Casual">Casual</option>
+                            <option value="Indie">Indie</option>
+                        </select>
+                    </div>
+                    
+                    <button type="submit" class="btn-add-game">Add Game</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Search and Filter -->
+        <div class="controls">
+            <div class="controls-container">
+                <input type="text" id="search-input" placeholder="🔍 Search games..." oninput="filterGames()">
+                <select id="category-filter" onchange="filterGames()">
+                    <option value="">All Categories</option>
+                    <option value="Action">Action</option>
+                    <option value="Adventure">Adventure</option>
+                    <option value="RPG">RPG</option>
+                    <option value="Strategy">Strategy</option>
+                    <option value="Puzzle">Puzzle</option>
+                    <option value="Simulation">Simulation</option>
+                    <option value="Sports">Sports</option>
+                    <option value="Racing">Racing</option>
+                    <option value="Casual">Casual</option>
+                    <option value="Indie">Indie</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Games Grid -->
+        <div class="games-wrapper">
+            <div id="games-container" class="loading">
+                <div class="loader">Loading games...</div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer>
+            <p>&copy; 2026 GameZame. All games are property of their respective owners.</p>
+            <p>Free games from various sources across the internet.</p>
+        </footer>
+    </div>
+
+    <script type="module" src="app.js"></script>
+</body>
+</html>
