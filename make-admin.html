@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Make Admin - GameZame</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+        }
+        button {
+            background: #4CAF50;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 20px;
+        }
+        button:hover {
+            background: #45a049;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 5px;
+            background: rgba(255, 255, 255, 0.2);
+        }
+        .success { border-left: 4px solid #4CAF50; }
+        .error { border-left: 4px solid #f44336; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎮 GameZame Admin Setup</h1>
+        <p>Click the button below to make <strong>abhiisingh240@gmail.com</strong> an admin.</p>
+        <button onclick="makeAdmin()">Make Me Admin</button>
+        <div id="result"></div>
+    </div>
+
+    <script type="module">
+        import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm'
+
+        const SUPABASE_URL = 'https://ehviqqjhbrcszfkyozqq.supabase.co'
+        const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVodmlxcWpoYnJjc3pma3lvenFxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njc3OTM3MTksImV4cCI6MjA4MzM2OTcxOX0.8TlD3ybOwJ5z1ZawfCVACVJzxHNCPr_s_lW1w5S6ANs'
+        const supabase = createClient(SUPABASE_URL, SUPABASE_KEY)
+
+        window.makeAdmin = async function() {
+            const resultDiv = document.getElementById('result')
+            resultDiv.innerHTML = '<p>Processing...</p>'
+
+            try {
+                // Get the current user's session
+                const { data: { session }, error: sessionError } = await supabase.auth.getSession()
+                
+                if (sessionError || !session) {
+                    resultDiv.innerHTML = '<div class="result error"><strong>Error:</strong> You need to be logged in! Please go to <a href="/" style="color: white;">the main page</a> and login first.</div>'
+                    return
+                }
+
+                const userId = session.user.id
+                const userEmail = session.user.email
+
+                // Check if already admin
+                const { data: existingAdmin, error: checkError } = await supabase
+                    .from('admins')
+                    .select('*')
+                    .eq('user_id', userId)
+                    .single()
+
+                if (existingAdmin) {
+                    resultDiv.innerHTML = '<div class="result success"><strong>✅ Success!</strong> You are already an admin! Go back to <a href="/" style="color: white;">the main page</a> to see the admin panel.</div>'
+                    return
+                }
+
+                // Add user as admin
+                const { data, error } = await supabase
+                    .from('admins')
+                    .insert([{ user_id: userId }])
+
+                if (error) {
+                    resultDiv.innerHTML = `<div class="result error"><strong>Error:</strong> ${error.message}</div>`
+                } else {
+                    resultDiv.innerHTML = '<div class="result success"><strong>🎉 Success!</strong> You are now an admin! Go back to <a href="/" style="color: white;">the main page</a> and refresh to see the admin panel.</div>'
+                }
+            } catch (err) {
+                resultDiv.innerHTML = `<div class="result error"><strong>Error:</strong> ${err.message}</div>`
+            }
+        }
+
+        // Auto-run on load
+        window.addEventListener('DOMContentLoaded', async () => {
+            // Check if user is logged in
+            const { data: { session } } = await supabase.auth.getSession()
+            if (session) {
+                document.getElementById('result').innerHTML = '<div class="result"><p>✅ Logged in as: <strong>' + session.user.email + '</strong></p></div>'
+            } else {
+                document.getElementById('result').innerHTML = '<div class="result error"><p>⚠️ Not logged in. Please <a href="/" style="color: white;">login first</a>.</p></div>'
+            }
+        })
+    </script>
+</body>
+</html>
