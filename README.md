@@ -1,5 +1,7 @@
 # GameZame - Free Game Download Platform 🎮
 
+> **Build Version:** 20260114-v3 (Last deployed: force push for Vercel refresh)
+
 A modern, full-featured game download platform built with Supabase backend and vanilla JavaScript.
 
 ## Features ✨
