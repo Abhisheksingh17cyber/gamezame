@@ -256,6 +256,31 @@ async function loadGames() {
     }
 }
 
+function getPlaceholderImage(category, title) {
+    // Category-specific placeholder colors
+    const categoryColors = {
+        'Action': { bg: '1a1a25', fg: 'ff4444' },
+        'Adventure': { bg: '1a2520', fg: '00ff88' },
+        'RPG': { bg: '1a1a28', fg: 'aa77ff' },
+        'Strategy': { bg: '201a1a', fg: 'ff8c00' },
+        'Puzzle': { bg: '1a2025', fg: '00d4ff' },
+        'Simulation': { bg: '1a201a', fg: '77ff77' },
+        'Sports': { bg: '251a1a', fg: 'ff6644' },
+        'Racing': { bg: '252020', fg: 'ffcc00' },
+        'Shooter': { bg: '201a1a', fg: 'ff4444' },
+        'Indie': { bg: '201a25', fg: 'ff77aa' },
+        'Platformer': { bg: '1a2020', fg: '44ddff' },
+        'Arcade': { bg: '202020', fg: 'ffff44' },
+        'Board': { bg: '1a1a1a', fg: 'cccccc' },
+        'Card': { bg: '1a1a20', fg: '4488ff' },
+        'Sandbox': { bg: '201a15', fg: 'ddaa44' }
+    }
+    
+    const colors = categoryColors[category] || { bg: '1a1a25', fg: 'ff4444' }
+    const shortTitle = title ? title.substring(0, 15) : 'GAME'
+    return `https://placehold.co/400x250/${colors.bg}/${colors.fg}?text=${encodeURIComponent(shortTitle)}&font=montserrat`
+}
+
 function displayGames(games) {
     const container = document.getElementById('games-container')
     
@@ -264,19 +289,27 @@ function displayGames(games) {
             <div class="no-games">
                 <h3>NO GAMES FOUND</h3>
                 <p>Check back soon for new releases!</p>
+                ${isAdmin ? '<p style="color: #ff8c00; margin-top: 10px;">Admin: Use the admin panel to add games or visit /populate-games.html</p>' : ''}
             </div>
         `
         return
     }
     
-    container.innerHTML = games.map(game => `
+    container.innerHTML = games.map(game => {
+        const placeholderImg = getPlaceholderImage(game.category, game.title)
+        const imageUrl = game.image_url || placeholderImg
+        
+        return `
         <div class="game-card" data-id="${game.id}">
             <div class="game-image">
-                <img src="${game.image_url || 'https://placehold.co/400x250/1a1a25/ff4444?text=GAME'}" 
-                     alt="${game.title}"
+                <img src="${imageUrl}" 
+                     alt="${escapeHtml(game.title)}"
                      loading="lazy"
-                     onerror="this.src='https://placehold.co/400x250/1a1a25/ff4444?text=GAME'">
+                     onerror="this.onerror=null; this.src='${placeholderImg}'">
                 <span class="game-badge">${game.category || 'GAME'}</span>
+                <div class="game-overlay">
+                    <span class="free-tag">FREE</span>
+                </div>
             </div>
             <div class="game-content">
                 <h3 class="game-title">${escapeHtml(game.title)}</h3>
@@ -285,13 +318,13 @@ function displayGames(games) {
                     <span class="game-category">${getCategoryIcon(game.category)} ${game.category || 'General'}</span>
                 </div>
                 <div class="game-actions">
-                    <a href="${game.download_url}" class="download-btn" target="_blank" rel="noopener noreferrer">
+                    <a href="${escapeHtml(game.download_url)}" class="download-btn" target="_blank" rel="noopener noreferrer" onclick="trackDownload('${game.id}')">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
                             <polyline points="7 10 12 15 17 10"/>
                             <line x1="12" y1="15" x2="12" y2="3"/>
                         </svg>
-                        DOWNLOAD
+                        DOWNLOAD FREE
                     </a>
                     ${isAdmin ? `
                         <button class="delete-btn" onclick="deleteGame('${game.id}')" title="Delete game">
@@ -304,7 +337,13 @@ function displayGames(games) {
                 </div>
             </div>
         </div>
-    `).join('')
+    `}).join('')
+}
+
+// Track downloads
+window.trackDownload = function(gameId) {
+    console.log('Download started for game:', gameId)
+    showToast('Download starting...', 'success')
 }
 
 // Update admin panel games list
