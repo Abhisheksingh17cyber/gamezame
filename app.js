@@ -17,6 +17,27 @@ let isAdmin = false
 let allGames = []
 let currentView = 'grid'
 
+// Force pointer-events cascade for problematic cards and buttons
+function injectPointerFixStyles() {
+    const styleId = 'pointer-fix-overrides'
+    if (document.getElementById(styleId)) return
+
+    const styleTag = document.createElement('style')
+    styleTag.id = styleId
+    styleTag.textContent = `
+        .game-card { pointer-events: none !important; }
+        .game-card * { pointer-events: auto !important; }
+        .game-content { pointer-events: none !important; }
+        .game-content * { pointer-events: auto !important; }
+        .download-btn {
+            pointer-events: auto !important;
+            z-index: 999999 !important;
+            position: relative !important;
+        }
+    `
+    document.head.appendChild(styleTag)
+}
+
 // ============================================
 // INITIALIZATION
 // ============================================
@@ -569,6 +590,7 @@ init()
 document.addEventListener("DOMContentLoaded", () => {
     // Simple, direct approach - just force pointer-events and let natural behavior work
     const forceDownloadButtonsClickable = () => {
+        injectPointerFixStyles()
         document.querySelectorAll('.download-btn').forEach(btn => {
             // Force styles directly on the element
             btn.style.pointerEvents = 'auto';
@@ -589,5 +611,6 @@ document.addEventListener("DOMContentLoaded", () => {
     // Run again after a short delay to catch dynamically loaded content
     setTimeout(forceDownloadButtonsClickable, 1000);
     setTimeout(forceDownloadButtonsClickable, 2000);
+    setTimeout(forceDownloadButtonsClickable, 4000);
 });
 
