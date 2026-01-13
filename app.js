@@ -562,3 +562,54 @@ function showToast(message, type = 'success') {
 // INITIALIZE APP
 // ============================================
 init()
+
+// ============================================
+// ENHANCED DOWNLOAD BUTTON CLICK HANDLER
+// ============================================
+document.addEventListener("DOMContentLoaded", () => {
+    // Add direct click listeners to all download buttons
+    const addDownloadClickHandlers = () => {
+        const downloadButtons = document.querySelectorAll('.download-btn, button');
+        
+        downloadButtons.forEach(btn => {
+            const isDownloadBtn = btn.classList.contains('download-btn') || 
+                                  btn.innerText.toLowerCase().includes('download');
+            
+            if (isDownloadBtn) {
+                // Force the cursor to pointer
+                btn.style.cursor = "pointer";
+                
+                // Remove existing click listeners and add new one
+                const newBtn = btn.cloneNode(true);
+                btn.parentNode.replaceChild(newBtn, btn);
+                
+                // Add direct click listener with stopPropagation
+                newBtn.addEventListener('click', (e) => {
+                    e.stopPropagation(); // Prevents the card from stealing the click
+                    
+                    const gameCard = newBtn.closest('.game-card');
+                    const gameTitle = gameCard?.querySelector('.game-title')?.innerText || 'Unknown Game';
+                    console.log("Download button clicked for:", gameTitle);
+                    
+                    // If it's a link with href, let it navigate naturally
+                    if (newBtn.tagName === 'A' && newBtn.href && newBtn.href !== '#') {
+                        return; // Allow default link behavior
+                    }
+                }, true); // Use capture phase to ensure we get the event first
+            }
+        });
+    };
+    
+    // Initial setup
+    addDownloadClickHandlers();
+    
+    // Re-run after any dynamic content changes
+    const observer = new MutationObserver(() => {
+        addDownloadClickHandlers();
+    });
+    
+    const gamesGrid = document.getElementById('games-grid');
+    if (gamesGrid) {
+        observer.observe(gamesGrid, { childList: true, subtree: true });
+    }
+});
