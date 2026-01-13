@@ -18,21 +18,40 @@ let allGames = []
 let currentView = 'grid'
 
 // Force pointer-events cascade for problematic cards and buttons
-// This is a backup - CSS should handle this now
+// This is a CRITICAL fix - must run to fix button clickability
 function injectPointerFixStyles() {
-    // CSS now handles this properly - this is just a safety backup
     const styleId = 'pointer-fix-overrides'
     if (document.getElementById(styleId)) return
 
     const styleTag = document.createElement('style')
     styleTag.id = styleId
     styleTag.textContent = `
-        /* Backup pointer-events fix */
-        .game-actions { pointer-events: auto !important; z-index: 100 !important; }
-        .download-btn { pointer-events: auto !important; cursor: pointer !important; z-index: 1000 !important; }
-        .delete-btn { pointer-events: auto !important; cursor: pointer !important; }
+        /* CRITICAL: Remove ::before pseudo-element that blocks clicks */
+        .game-card::before {
+            display: none !important;
+            content: none !important;
+            pointer-events: none !important;
+        }
+        /* Ensure buttons are clickable with high z-index */
+        .game-actions { 
+            pointer-events: auto !important; 
+            z-index: 100 !important; 
+            position: relative !important;
+        }
+        .download-btn { 
+            pointer-events: auto !important; 
+            cursor: pointer !important; 
+            z-index: 1000 !important; 
+            position: relative !important;
+        }
+        .delete-btn { 
+            pointer-events: auto !important; 
+            cursor: pointer !important; 
+            position: relative !important;
+        }
     `
     document.head.appendChild(styleTag)
+    console.log('🔧 Pointer fix styles injected')
 }
 
 // ============================================
