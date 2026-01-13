@@ -1030,6 +1030,8 @@ body {
     cursor: pointer;
     transition: var(--transition-normal);
     position: relative;
+    z-index: 2;
+    pointer-events: auto;
 }
 
 .download-btn svg {
@@ -1066,6 +1068,8 @@ body {
     justify-content: center;
     transition: var(--transition-normal);
     position: relative;
+    z-index: 1;
+    pointer-events: auto;
 }
 
 .delete-btn svg {
