@@ -860,6 +860,13 @@ body {
     position: relative;
 }
 
+/* CRITICAL FIX: Disable any ::before pseudo-element that blocks click events */
+.game-card::before {
+    display: none !important;
+    content: none !important;
+    pointer-events: none !important;
+}
+
 .game-card:hover {
     transform: translateY(-5px);
     box-shadow: var(--shadow-lg), 0 0 30px var(--primary-glow);
@@ -973,6 +980,8 @@ body {
 .game-actions {
     display: flex;
     gap: 10px;
+    position: relative;
+    z-index: 10;
 }
 
 .download-btn {
@@ -993,6 +1002,9 @@ body {
     text-decoration: none;
     cursor: pointer;
     transition: var(--transition-normal), transform 0.2s ease;
+    position: relative;
+    z-index: 11;
+    pointer-events: auto !important;
 }
 
 .download-btn svg {
