@@ -1,9 +1,12 @@
 import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm'
 
-// ⚠️ IMPORTANT: Replace these with your Supabase credentials
-// Get them from: https://supabase.com/dashboard/project/_/settings/api
+// ============================================
+// GAMEZAME - PROFESSIONAL GAMING PLATFORM
+// ============================================
+
+// Supabase Configuration
 const SUPABASE_URL = 'https://ehviqqjhbrcszfkyozqq.supabase.co'
-const SUPABASE_KEY ='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVodmlxcWpoYnJjc3pma3lvenFxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njc3OTM3MTksImV4cCI6MjA4MzM2OTcxOX0.8TlD3ybOwJ5z1ZawfCVACVJzxHNCPr_s_lW1w5S6ANs'
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVodmlxcWpoYnJjc3pma3lvenFxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njc3OTM3MTksImV4cCI6MjA4MzM2OTcxOX0.8TlD3ybOwJ5z1ZawfCVACVJzxHNCPr_s_lW1w5S6ANs'
 
 // Initialize Supabase client
 const supabase = createClient(SUPABASE_URL, SUPABASE_KEY)
@@ -12,10 +15,16 @@ const supabase = createClient(SUPABASE_URL, SUPABASE_KEY)
 let currentUser = null
 let isAdmin = false
 let allGames = []
+let currentView = 'grid'
 
-// Initialize app
+// ============================================
+// INITIALIZATION
+// ============================================
 async function init() {
-    console.log('Initializing app...')
+    console.log('🎮 GameZame Initializing...')
+    
+    // Show loading screen
+    await simulateLoading()
     
     // Check if user is already logged in
     const { data: { session } } = await supabase.auth.getSession()
@@ -45,7 +54,23 @@ async function init() {
     })
 }
 
-// Check if user is admin
+// Simulate loading screen
+async function simulateLoading() {
+    return new Promise(resolve => {
+        setTimeout(() => {
+            const loadingScreen = document.getElementById('loading-screen')
+            loadingScreen.classList.add('fade-out')
+            setTimeout(() => {
+                loadingScreen.style.display = 'none'
+                resolve()
+            }, 500)
+        }, 2000)
+    })
+}
+
+// ============================================
+// AUTHENTICATION
+// ============================================
 async function checkAdmin() {
     if (!currentUser) return
     
@@ -56,19 +81,25 @@ async function checkAdmin() {
         .single()
     
     isAdmin = !!data
+    
     if (isAdmin) {
-        document.getElementById('admin-panel').classList.remove('hidden')
-        console.log('Admin access granted')
+        document.getElementById('admin-nav-btn').classList.remove('hidden')
+        document.getElementById('user-rank').textContent = 'ADMIN'
+        document.getElementById('user-rank').style.color = '#ff4444'
+        console.log('🔐 Admin access granted')
+    } else {
+        document.getElementById('admin-nav-btn').classList.add('hidden')
+        document.getElementById('user-rank').textContent = 'MEMBER'
+        document.getElementById('user-rank').style.color = '#00ff88'
     }
 }
 
-// Authentication functions
 window.login = async function() {
     const email = document.getElementById('email').value
     const password = document.getElementById('password').value
     
     if (!email || !password) {
-        alert('Please enter both email and password')
+        showToast('Please enter both email and password', 'error')
         return
     }
     
@@ -78,13 +109,14 @@ window.login = async function() {
     })
     
     if (error) {
-        alert('Login failed: ' + error.message)
+        showToast('Login failed: ' + error.message, 'error')
         console.error('Login error:', error)
     } else {
         currentUser = data.user
         await checkAdmin()
         showApp()
         await loadGames()
+        showToast('Welcome back, Player!', 'success')
     }
 }
 
@@ -93,12 +125,12 @@ window.signup = async function() {
     const password = document.getElementById('password').value
     
     if (!email || !password) {
-        alert('Please enter both email and password')
+        showToast('Please enter both email and password', 'error')
         return
     }
     
     if (password.length < 6) {
-        alert('Password must be at least 6 characters long')
+        showToast('Password must be at least 6 characters', 'error')
         return
     }
     
@@ -108,10 +140,10 @@ window.signup = async function() {
     })
     
     if (error) {
-        alert('Signup failed: ' + error.message)
+        showToast('Signup failed: ' + error.message, 'error')
         console.error('Signup error:', error)
     } else {
-        alert('✅ Account created! Check your email for confirmation link.')
+        showToast('Account created! You can now login.', 'success')
     }
 }
 
@@ -124,12 +156,79 @@ window.logout = async function() {
     isAdmin = false
     allGames = []
     showAuth()
+    showToast('Logged out successfully', 'success')
 }
 
-// Game management functions
+// ============================================
+// UI NAVIGATION
+// ============================================
+function showAuth() {
+    document.getElementById('auth-section').classList.remove('hidden')
+    document.getElementById('app').classList.add('hidden')
+}
+
+function showApp() {
+    document.getElementById('auth-section').classList.add('hidden')
+    document.getElementById('app').classList.remove('hidden')
+    
+    // Update user info
+    const emailDisplay = currentUser.email.length > 20 
+        ? currentUser.email.substring(0, 17) + '...' 
+        : currentUser.email
+    document.getElementById('user-email').textContent = emailDisplay
+}
+
+window.showSection = function(section) {
+    // Update nav links
+    document.querySelectorAll('.nav-link').forEach(link => {
+        link.classList.remove('active')
+        if (link.dataset.section === section) {
+            link.classList.add('active')
+        }
+    })
+    
+    // Hide all sections
+    document.getElementById('games-section').classList.add('hidden')
+    document.getElementById('categories-section').classList.add('hidden')
+    document.getElementById('admin-section').classList.add('hidden')
+    
+    // Show selected section
+    if (section === 'games') {
+        document.getElementById('games-section').classList.remove('hidden')
+    } else if (section === 'categories') {
+        document.getElementById('categories-section').classList.remove('hidden')
+    } else if (section === 'admin' && isAdmin) {
+        document.getElementById('admin-section').classList.remove('hidden')
+        updateAdminPanel()
+    }
+}
+
+window.setView = function(view) {
+    currentView = view
+    const container = document.getElementById('games-container')
+    const buttons = document.querySelectorAll('.view-btn')
+    
+    buttons.forEach(btn => btn.classList.remove('active'))
+    event.currentTarget.classList.add('active')
+    
+    if (view === 'list') {
+        container.classList.add('list-view')
+    } else {
+        container.classList.remove('list-view')
+    }
+}
+
+// ============================================
+// GAME MANAGEMENT
+// ============================================
 async function loadGames() {
     const container = document.getElementById('games-container')
-    container.innerHTML = '<div class="loader">Loading games...</div>'
+    container.innerHTML = `
+        <div class="loading-spinner">
+            <div class="spinner"></div>
+            <p>Loading games...</p>
+        </div>
+    `
     
     const { data: games, error } = await supabase
         .from('games')
@@ -138,37 +237,99 @@ async function loadGames() {
     
     if (error) {
         console.error('Error loading games:', error)
-        container.innerHTML = '<div class="error">Failed to load games. Please try again.</div>'
+        container.innerHTML = `
+            <div class="no-games">
+                <h3>Error Loading Games</h3>
+                <p>Please refresh the page and try again.</p>
+            </div>
+        `
         return
     }
     
     allGames = games || []
     displayGames(allGames)
+    
+    // Update stats
+    document.getElementById('total-games').textContent = allGames.length
+    if (isAdmin) {
+        document.getElementById('admin-total-games').textContent = allGames.length
+    }
 }
 
 function displayGames(games) {
     const container = document.getElementById('games-container')
     
     if (!games || games.length === 0) {
-        container.innerHTML = '<div class="no-games">No games available yet. Check back soon!</div>'
+        container.innerHTML = `
+            <div class="no-games">
+                <h3>NO GAMES FOUND</h3>
+                <p>Check back soon for new releases!</p>
+            </div>
+        `
         return
     }
     
     container.innerHTML = games.map(game => `
-        <div class="game-card">
+        <div class="game-card" data-id="${game.id}">
             <div class="game-image">
-                <img src="${game.image_url || 'https://via.placeholder.com/300x200/667eea/ffffff?text=Game'}" 
+                <img src="${game.image_url || 'https://placehold.co/400x250/1a1a25/ff4444?text=GAME'}" 
                      alt="${game.title}"
-                     onerror="this.src='https://via.placeholder.com/300x200/667eea/ffffff?text=Game'">
+                     loading="lazy"
+                     onerror="this.src='https://placehold.co/400x250/1a1a25/ff4444?text=GAME'">
+                <span class="game-badge">${game.category || 'GAME'}</span>
             </div>
             <div class="game-content">
-                <h3>${game.title}</h3>
-                <p>${game.description || 'No description available'}</p>
-                <span class="category">${game.category || 'General'}</span>
-                <a href="${game.download_url}" class="download-btn" target="_blank" rel="noopener noreferrer">
-                    ⬇️ Download Now
-                </a>
-                ${isAdmin ? `<button class="delete-btn" onclick="deleteGame('${game.id}')">🗑️ Delete</button>` : ''}
+                <h3 class="game-title">${escapeHtml(game.title)}</h3>
+                <p class="game-description">${escapeHtml(game.description || 'No description available')}</p>
+                <div class="game-meta">
+                    <span class="game-category">${getCategoryIcon(game.category)} ${game.category || 'General'}</span>
+                </div>
+                <div class="game-actions">
+                    <a href="${game.download_url}" class="download-btn" target="_blank" rel="noopener noreferrer">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                            <polyline points="7 10 12 15 17 10"/>
+                            <line x1="12" y1="15" x2="12" y2="3"/>
+                        </svg>
+                        DOWNLOAD
+                    </a>
+                    ${isAdmin ? `
+                        <button class="delete-btn" onclick="deleteGame('${game.id}')" title="Delete game">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="3 6 5 6 21 6"/>
+                                <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+                            </svg>
+                        </button>
+                    ` : ''}
+                </div>
+            </div>
+        </div>
+    `).join('')
+}
+
+// Update admin panel games list
+function updateAdminPanel() {
+    const list = document.getElementById('admin-games-list')
+    
+    if (!allGames || allGames.length === 0) {
+        list.innerHTML = '<p class="loading-text">No games in database</p>'
+        return
+    }
+    
+    list.innerHTML = allGames.slice(0, 20).map(game => `
+        <div class="admin-game-item">
+            <div class="admin-game-info">
+                <img class="admin-game-thumb" 
+                     src="${game.image_url || 'https://placehold.co/60x45/1a1a25/ff4444?text=G'}" 
+                     alt="${game.title}"
+                     onerror="this.src='https://placehold.co/60x45/1a1a25/ff4444?text=G'">
+                <div class="admin-game-details">
+                    <h4>${escapeHtml(game.title)}</h4>
+                    <span>${game.category || 'Uncategorized'}</span>
+                </div>
+            </div>
+            <div class="admin-game-actions">
+                <button class="admin-delete-btn" onclick="deleteGame('${game.id}')">DELETE</button>
             </div>
         </div>
     `).join('')
@@ -176,27 +337,27 @@ function displayGames(games) {
 
 window.addGame = async function() {
     if (!isAdmin) {
-        alert('Admin access required')
+        showToast('Admin access required', 'error')
         return
     }
     
-    const title = document.getElementById('game-title').value
-    const description = document.getElementById('game-description').value
-    const downloadUrl = document.getElementById('download-url').value
-    const imageUrl = document.getElementById('image-url').value
+    const title = document.getElementById('game-title').value.trim()
+    const description = document.getElementById('game-description').value.trim()
+    const downloadUrl = document.getElementById('download-url').value.trim()
+    const imageUrl = document.getElementById('image-url').value.trim()
     const category = document.getElementById('category').value
     
     if (!title || !downloadUrl) {
-        alert('Please fill in required fields (Title and Download URL)')
+        showToast('Title and Download URL are required', 'error')
         return
     }
     
     const game = {
-        title: title.trim(),
-        description: description.trim(),
-        download_url: downloadUrl.trim(),
-        image_url: imageUrl.trim(),
-        category: category
+        title,
+        description,
+        download_url: downloadUrl,
+        image_url: imageUrl,
+        category
     }
     
     const { error } = await supabase
@@ -204,11 +365,12 @@ window.addGame = async function() {
         .insert([game])
     
     if (error) {
-        alert('Error adding game: ' + error.message)
+        showToast('Error adding game: ' + error.message, 'error')
         console.error('Insert error:', error)
     } else {
-        alert('✅ Game added successfully!')
+        showToast('Game added successfully!', 'success')
         await loadGames()
+        updateAdminPanel()
         
         // Clear form
         document.getElementById('game-title').value = ''
@@ -232,22 +394,24 @@ window.deleteGame = async function(gameId) {
         .eq('id', gameId)
     
     if (error) {
-        alert('Error deleting game: ' + error.message)
+        showToast('Error deleting game: ' + error.message, 'error')
         console.error('Delete error:', error)
     } else {
-        alert('✅ Game deleted successfully!')
+        showToast('Game deleted successfully!', 'success')
         await loadGames()
+        updateAdminPanel()
     }
 }
 
-// Search and filter functionality
+// ============================================
+// SEARCH & FILTER
+// ============================================
 window.filterGames = function() {
     const searchTerm = document.getElementById('search-input').value.toLowerCase()
     const categoryFilter = document.getElementById('category-filter').value
     
     let filteredGames = allGames
     
-    // Filter by search term
     if (searchTerm) {
         filteredGames = filteredGames.filter(game => 
             game.title.toLowerCase().includes(searchTerm) ||
@@ -255,7 +419,6 @@ window.filterGames = function() {
         )
     }
     
-    // Filter by category
     if (categoryFilter) {
         filteredGames = filteredGames.filter(game => 
             game.category === categoryFilter
@@ -265,17 +428,68 @@ window.filterGames = function() {
     displayGames(filteredGames)
 }
 
-// UI helpers
-function showAuth() {
-    document.getElementById('auth-section').classList.remove('hidden')
-    document.getElementById('app').classList.add('hidden')
+window.filterByCategory = function(category) {
+    document.getElementById('category-filter').value = category
+    document.getElementById('search-input').value = ''
+    filterGames()
+    showSection('games')
 }
 
-function showApp() {
-    document.getElementById('auth-section').classList.add('hidden')
-    document.getElementById('app').classList.remove('hidden')
-    document.getElementById('user-email').textContent = currentUser.email
+// ============================================
+// UTILITIES
+// ============================================
+function escapeHtml(text) {
+    if (!text) return ''
+    const div = document.createElement('div')
+    div.textContent = text
+    return div.innerHTML
 }
 
-// Initialize the app when DOM is ready
+function getCategoryIcon(category) {
+    const icons = {
+        'Action': '⚔️',
+        'Adventure': '🗺️',
+        'RPG': '🎭',
+        'Strategy': '♟️',
+        'Puzzle': '🧩',
+        'Simulation': '🎛️',
+        'Sports': '⚽',
+        'Racing': '🏎️',
+        'Shooter': '🎯',
+        'Indie': '💎',
+        'Platformer': '🎮',
+        'Arcade': '👾',
+        'Board': '🎲',
+        'Card': '🃏',
+        'Sandbox': '🏗️'
+    }
+    return icons[category] || '🎮'
+}
+
+// Toast Notifications
+function showToast(message, type = 'success') {
+    const container = document.getElementById('toast-container')
+    const toast = document.createElement('div')
+    toast.className = `toast ${type}`
+    
+    const icon = type === 'success' 
+        ? '<svg class="toast-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>'
+        : '<svg class="toast-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>'
+    
+    toast.innerHTML = `
+        ${icon}
+        <span class="toast-message">${message}</span>
+    `
+    
+    container.appendChild(toast)
+    
+    setTimeout(() => {
+        toast.style.animation = 'slideIn 0.3s ease reverse'
+        setTimeout(() => toast.remove(), 300)
+    }, 3000)
+}
+
+// ============================================
+// INITIALIZE APP
+// ============================================
 init()

@@ -3,144 +3,425 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GameZame - Free Game Downloads | Play Premium Games Free</title>
-    <meta name="description" content="Download and play premium PC games for free. Browse our collection of action, adventure, RPG, and more!">
+    <title>GameZame | Ultimate Gaming Hub - Free PC Games</title>
+    <meta name="description" content="The ultimate gaming destination. Download premium PC games for free. Action, RPG, Strategy and more!">
     <link rel="stylesheet" href="style.css">
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎮</text></svg>">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Orbitron:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 </head>
 <body>
+    <!-- Particle Background -->
+    <div id="particles-container"></div>
+    
+    <!-- Loading Screen -->
+    <div id="loading-screen">
+        <div class="loader-content">
+            <div class="game-loader">
+                <div class="loader-bar"></div>
+            </div>
+            <p class="loader-text">INITIALIZING SYSTEM...</p>
+        </div>
+    </div>
+
     <!-- Auth Section -->
     <div id="auth-section" class="hidden">
-        <div class="auth-background">
-            <div class="floating-shapes">
-                <div class="shape shape-1"></div>
-                <div class="shape shape-2"></div>
-                <div class="shape shape-3"></div>
-            </div>
-        </div>
+        <div class="cyber-grid"></div>
         <div class="auth-container">
-            <div class="auth-header">
-                <div class="logo-icon">🎮</div>
-                <h1>GameZame</h1>
-                <p>Your Premium Free Gaming Hub</p>
+            <div class="glitch-wrapper">
+                <h1 class="glitch" data-text="GAMEZAME">GAMEZAME</h1>
             </div>
-            <div id="login-form">
-                <h2>Welcome Back! 👋</h2>
-                <div class="input-group">
-                    <span class="input-icon">📧</span>
-                    <input type="email" id="email" placeholder="Email Address" required>
+            <p class="tagline">[ ENTER THE GAME ]</p>
+            
+            <div class="terminal-box">
+                <div class="terminal-header">
+                    <span class="terminal-dot red"></span>
+                    <span class="terminal-dot yellow"></span>
+                    <span class="terminal-dot green"></span>
+                    <span class="terminal-title">secure_login.exe</span>
                 </div>
-                <div class="input-group">
-                    <span class="input-icon">🔒</span>
-                    <input type="password" id="password" placeholder="Password" required>
+                <div class="terminal-body">
+                    <div class="input-field">
+                        <label>EMAIL_ADDRESS:</label>
+                        <input type="email" id="email" placeholder="player@gamezame.com" autocomplete="email">
+                        <span class="input-line"></span>
+                    </div>
+                    <div class="input-field">
+                        <label>PASSWORD:</label>
+                        <input type="password" id="password" placeholder="••••••••" autocomplete="current-password">
+                        <span class="input-line"></span>
+                    </div>
+                    <div class="auth-buttons">
+                        <button class="cyber-btn primary" onclick="login()">
+                            <span class="btn-content">
+                                <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4M10 17l5-5-5-5M13.8 12H3"/>
+                                </svg>
+                                LOGIN
+                            </span>
+                            <span class="btn-glitch"></span>
+                        </button>
+                        <button class="cyber-btn secondary" onclick="signup()">
+                            <span class="btn-content">
+                                <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                                    <circle cx="8.5" cy="7" r="4"/>
+                                    <line x1="20" y1="8" x2="20" y2="14"/>
+                                    <line x1="23" y1="11" x2="17" y2="11"/>
+                                </svg>
+                                REGISTER
+                            </span>
+                            <span class="btn-glitch"></span>
+                        </button>
+                    </div>
                 </div>
-                <button class="btn-primary" onclick="login()">🚀 Login</button>
-                <button class="btn-secondary" onclick="signup()">✨ Create Account</button>
-                <p class="auth-hint">🎁 Sign up to unlock thousands of free games!</p>
             </div>
+            <p class="auth-footer">// FREE ACCESS TO 1000+ GAMES //</p>
         </div>
     </div>
 
     <!-- Main App -->
     <div id="app" class="hidden">
-        <header>
-            <div class="header-content">
-                <div class="logo-section">
-                    <div class="logo-badge">🎮</div>
-                    <h1>GameZame</h1>
-                </div>
-                <div class="user-info">
-                    <div class="user-badge">
-                        <span class="user-icon">👤</span>
-                        <span id="user-email"></span>
+        <!-- Navigation -->
+        <nav class="main-nav">
+            <div class="nav-content">
+                <div class="nav-brand">
+                    <div class="brand-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="2" y="6" width="20" height="12" rx="2"/>
+                            <circle cx="8" cy="12" r="2"/>
+                            <path d="M14 10h4M16 8v4"/>
+                        </svg>
                     </div>
-                    <button class="btn-logout" onclick="logout()">🚪 Logout</button>
+                    <span class="brand-text">GAMEZAME</span>
+                    <span class="brand-badge">PRO</span>
+                </div>
+                
+                <div class="nav-center">
+                    <button class="nav-link active" onclick="showSection('games')" data-section="games">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="3" width="7" height="7"/>
+                            <rect x="14" y="3" width="7" height="7"/>
+                            <rect x="3" y="14" width="7" height="7"/>
+                            <rect x="14" y="14" width="7" height="7"/>
+                        </svg>
+                        LIBRARY
+                    </button>
+                    <button class="nav-link" onclick="showSection('categories')" data-section="categories">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="8" y1="6" x2="21" y2="6"/>
+                            <line x1="8" y1="12" x2="21" y2="12"/>
+                            <line x1="8" y1="18" x2="21" y2="18"/>
+                            <line x1="3" y1="6" x2="3.01" y2="6"/>
+                            <line x1="3" y1="12" x2="3.01" y2="12"/>
+                            <line x1="3" y1="18" x2="3.01" y2="18"/>
+                        </svg>
+                        CATEGORIES
+                    </button>
+                    <button id="admin-nav-btn" class="nav-link hidden" onclick="showSection('admin')" data-section="admin">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                        </svg>
+                        ADMIN
+                    </button>
+                </div>
+
+                <div class="nav-right">
+                    <div class="user-panel">
+                        <div class="user-avatar">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                                <circle cx="12" cy="7" r="4"/>
+                            </svg>
+                        </div>
+                        <div class="user-info">
+                            <span class="user-name" id="user-email">Player</span>
+                            <span class="user-rank" id="user-rank">MEMBER</span>
+                        </div>
+                        <button class="logout-btn" onclick="logout()" title="Logout">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+                                <polyline points="16 17 21 12 16 7"/>
+                                <line x1="21" y1="12" x2="9" y2="12"/>
+                            </svg>
+                        </button>
+                    </div>
                 </div>
             </div>
-        </header>
+        </nav>
 
-        <!-- Admin Panel -->
-        <div id="admin-panel" class="hidden">
-            <div class="admin-container">
-                <h3>⚡ Admin Panel - Add New Game</h3>
-                <form id="admin-form" onsubmit="event.preventDefault(); addGame();">
-                    <div class="form-group">
-                        <label for="game-title">Game Title *</label>
-                        <input type="text" id="game-title" placeholder="e.g., Minecraft" required>
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <div class="hero-bg">
+                <div class="grid-overlay"></div>
+            </div>
+            <div class="hero-content">
+                <div class="hero-stats">
+                    <div class="stat-card">
+                        <span class="stat-number" id="total-games">0</span>
+                        <span class="stat-label">TOTAL GAMES</span>
                     </div>
-                    
-                    <div class="form-group">
-                        <label for="game-description">Description</label>
-                        <textarea id="game-description" placeholder="Brief description of the game..." rows="4"></textarea>
+                    <div class="stat-card">
+                        <span class="stat-number">10</span>
+                        <span class="stat-label">CATEGORIES</span>
                     </div>
-                    
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="download-url">Download URL *</label>
-                            <input type="url" id="download-url" placeholder="https://..." required>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="image-url">Image URL</label>
-                            <input type="url" id="image-url" placeholder="https://...">
-                        </div>
+                    <div class="stat-card">
+                        <span class="stat-number">∞</span>
+                        <span class="stat-label">FREE DOWNLOADS</span>
                     </div>
-                    
-                    <div class="form-group">
-                        <label for="category">Category</label>
-                        <select id="category">
-                            <option value="Action">Action</option>
-                            <option value="Adventure">Adventure</option>
-                            <option value="RPG">RPG</option>
-                            <option value="Strategy">Strategy</option>
-                            <option value="Puzzle">Puzzle</option>
-                            <option value="Simulation">Simulation</option>
-                            <option value="Sports">Sports</option>
-                            <option value="Racing">Racing</option>
-                            <option value="Casual">Casual</option>
-                            <option value="Indie">Indie</option>
+                </div>
+                <div class="search-container">
+                    <div class="search-box">
+                        <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="11" cy="11" r="8"/>
+                            <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                        </svg>
+                        <input type="text" id="search-input" placeholder="Search games..." oninput="filterGames()">
+                        <select id="category-filter" onchange="filterGames()">
+                            <option value="">ALL CATEGORIES</option>
+                            <option value="Action">⚔️ ACTION</option>
+                            <option value="Adventure">🗺️ ADVENTURE</option>
+                            <option value="RPG">🎭 RPG</option>
+                            <option value="Strategy">♟️ STRATEGY</option>
+                            <option value="Puzzle">🧩 PUZZLE</option>
+                            <option value="Simulation">🎛️ SIMULATION</option>
+                            <option value="Sports">⚽ SPORTS</option>
+                            <option value="Racing">🏎️ RACING</option>
+                            <option value="Shooter">🎯 SHOOTER</option>
+                            <option value="Indie">💎 INDIE</option>
                         </select>
                     </div>
-                    
-                    <button type="submit" class="btn-add-game">Add Game</button>
-                </form>
+                </div>
             </div>
-        </div>
+        </section>
 
-        <!-- Search and Filter -->
-        <div class="controls">
-            <div class="controls-container">
-                <input type="text" id="search-input" placeholder="🔍 Search games..." oninput="filterGames()">
-                <select id="category-filter" onchange="filterGames()">
-                    <option value="">All Categories</option>
-                    <option value="Action">Action</option>
-                    <option value="Adventure">Adventure</option>
-                    <option value="RPG">RPG</option>
-                    <option value="Strategy">Strategy</option>
-                    <option value="Puzzle">Puzzle</option>
-                    <option value="Simulation">Simulation</option>
-                    <option value="Sports">Sports</option>
-                    <option value="Racing">Racing</option>
-                    <option value="Casual">Casual</option>
-                    <option value="Indie">Indie</option>
-                </select>
+        <!-- Games Section -->
+        <section id="games-section" class="content-section">
+            <div class="section-header">
+                <h2 class="section-title">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+                    </svg>
+                    GAME LIBRARY
+                </h2>
+                <div class="view-toggle">
+                    <button class="view-btn active" onclick="setView('grid')" title="Grid View">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="3" width="7" height="7"/>
+                            <rect x="14" y="3" width="7" height="7"/>
+                            <rect x="3" y="14" width="7" height="7"/>
+                            <rect x="14" y="14" width="7" height="7"/>
+                        </svg>
+                    </button>
+                    <button class="view-btn" onclick="setView('list')" title="List View">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="8" y1="6" x2="21" y2="6"/>
+                            <line x1="8" y1="12" x2="21" y2="12"/>
+                            <line x1="8" y1="18" x2="21" y2="18"/>
+                            <line x1="3" y1="6" x2="3.01" y2="6"/>
+                            <line x1="3" y1="12" x2="3.01" y2="12"/>
+                            <line x1="3" y1="18" x2="3.01" y2="18"/>
+                        </svg>
+                    </button>
+                </div>
             </div>
-        </div>
+            <div id="games-container" class="games-grid">
+                <div class="loading-spinner">
+                    <div class="spinner"></div>
+                    <p>Loading games...</p>
+                </div>
+            </div>
+        </section>
 
-        <!-- Games Grid -->
-        <div class="games-wrapper">
-            <div id="games-container" class="loading">
-                <div class="loader">Loading games...</div>
+        <!-- Categories Section -->
+        <section id="categories-section" class="content-section hidden">
+            <div class="section-header">
+                <h2 class="section-title">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/>
+                    </svg>
+                    CATEGORIES
+                </h2>
             </div>
-        </div>
+            <div class="categories-grid">
+                <div class="category-card" onclick="filterByCategory('Action')">
+                    <div class="category-icon">⚔️</div>
+                    <h3>ACTION</h3>
+                    <p>High-octane combat & battles</p>
+                </div>
+                <div class="category-card" onclick="filterByCategory('Adventure')">
+                    <div class="category-icon">🗺️</div>
+                    <h3>ADVENTURE</h3>
+                    <p>Epic journeys await</p>
+                </div>
+                <div class="category-card" onclick="filterByCategory('RPG')">
+                    <div class="category-icon">🎭</div>
+                    <h3>RPG</h3>
+                    <p>Build your legend</p>
+                </div>
+                <div class="category-card" onclick="filterByCategory('Strategy')">
+                    <div class="category-icon">♟️</div>
+                    <h3>STRATEGY</h3>
+                    <p>Outsmart your enemies</p>
+                </div>
+                <div class="category-card" onclick="filterByCategory('Puzzle')">
+                    <div class="category-icon">🧩</div>
+                    <h3>PUZZLE</h3>
+                    <p>Challenge your mind</p>
+                </div>
+                <div class="category-card" onclick="filterByCategory('Racing')">
+                    <div class="category-icon">🏎️</div>
+                    <h3>RACING</h3>
+                    <p>Speed & adrenaline</p>
+                </div>
+                <div class="category-card" onclick="filterByCategory('Shooter')">
+                    <div class="category-icon">🎯</div>
+                    <h3>SHOOTER</h3>
+                    <p>Lock and load</p>
+                </div>
+                <div class="category-card" onclick="filterByCategory('Simulation')">
+                    <div class="category-icon">🎛️</div>
+                    <h3>SIMULATION</h3>
+                    <p>Build & manage</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Admin Dashboard Section -->
+        <section id="admin-section" class="content-section hidden">
+            <div class="admin-dashboard">
+                <div class="admin-header">
+                    <div class="admin-title">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                        </svg>
+                        <h2>ADMIN CONTROL CENTER</h2>
+                    </div>
+                    <div class="admin-badge">
+                        <span class="badge-text">AUTHORIZED ACCESS</span>
+                        <span class="badge-indicator"></span>
+                    </div>
+                </div>
+
+                <div class="admin-grid">
+                    <!-- Stats Panel -->
+                    <div class="admin-panel stats-panel">
+                        <h3 class="panel-title">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M18 20V10M12 20V4M6 20v-6"/>
+                            </svg>
+                            SYSTEM STATS
+                        </h3>
+                        <div class="stats-grid">
+                            <div class="mini-stat">
+                                <span class="mini-stat-value" id="admin-total-games">0</span>
+                                <span class="mini-stat-label">Total Games</span>
+                            </div>
+                            <div class="mini-stat">
+                                <span class="mini-stat-value" id="admin-categories">10</span>
+                                <span class="mini-stat-label">Categories</span>
+                            </div>
+                            <div class="mini-stat">
+                                <span class="mini-stat-value">Active</span>
+                                <span class="mini-stat-label">System Status</span>
+                            </div>
+                            <div class="mini-stat">
+                                <span class="mini-stat-value" id="admin-user">Admin</span>
+                                <span class="mini-stat-label">Access Level</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Add Game Panel -->
+                    <div class="admin-panel add-game-panel">
+                        <h3 class="panel-title">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/>
+                                <line x1="12" y1="8" x2="12" y2="16"/>
+                                <line x1="8" y1="12" x2="16" y2="12"/>
+                            </svg>
+                            ADD NEW GAME
+                        </h3>
+                        <form id="admin-form" onsubmit="event.preventDefault(); addGame();">
+                            <div class="form-row">
+                                <div class="form-field">
+                                    <label>GAME TITLE *</label>
+                                    <input type="text" id="game-title" placeholder="Enter game name" required>
+                                </div>
+                                <div class="form-field">
+                                    <label>CATEGORY</label>
+                                    <select id="category">
+                                        <option value="Action">⚔️ Action</option>
+                                        <option value="Adventure">🗺️ Adventure</option>
+                                        <option value="RPG">🎭 RPG</option>
+                                        <option value="Strategy">♟️ Strategy</option>
+                                        <option value="Puzzle">🧩 Puzzle</option>
+                                        <option value="Simulation">🎛️ Simulation</option>
+                                        <option value="Sports">⚽ Sports</option>
+                                        <option value="Racing">🏎️ Racing</option>
+                                        <option value="Shooter">🎯 Shooter</option>
+                                        <option value="Indie">💎 Indie</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-field full">
+                                <label>DESCRIPTION</label>
+                                <textarea id="game-description" placeholder="Enter game description..." rows="3"></textarea>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-field">
+                                    <label>DOWNLOAD URL *</label>
+                                    <input type="url" id="download-url" placeholder="https://..." required>
+                                </div>
+                                <div class="form-field">
+                                    <label>IMAGE URL</label>
+                                    <input type="url" id="image-url" placeholder="https://...">
+                                </div>
+                            </div>
+                            <button type="submit" class="submit-btn">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                                    <polyline points="17 8 12 3 7 8"/>
+                                    <line x1="12" y1="3" x2="12" y2="15"/>
+                                </svg>
+                                UPLOAD GAME
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- Game Management Panel -->
+                    <div class="admin-panel manage-panel">
+                        <h3 class="panel-title">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                                <line x1="3" y1="9" x2="21" y2="9"/>
+                                <line x1="9" y1="21" x2="9" y2="9"/>
+                            </svg>
+                            MANAGE GAMES
+                        </h3>
+                        <div id="admin-games-list" class="admin-games-list">
+                            <p class="loading-text">Loading games...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
         <!-- Footer -->
-        <footer>
-            <p>&copy; 2026 GameZame. All games are property of their respective owners.</p>
-            <p>Free games from various sources across the internet.</p>
+        <footer class="main-footer">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <span class="footer-logo">GAMEZAME</span>
+                    <p>© 2026 GameZame. All games are property of their respective owners.</p>
+                </div>
+                <div class="footer-links">
+                    <span>Built with 🔥 for gamers</span>
+                </div>
+            </div>
         </footer>
     </div>
+
+    <!-- Toast Notifications -->
+    <div id="toast-container"></div>
 
     <script type="module" src="app.js"></script>
 </body>
