@@ -343,7 +343,13 @@ function displayGames(games) {
 // Track downloads
 window.trackDownload = function(gameId) {
     console.log('Download started for game:', gameId)
-    showToast('Download starting...', 'success')
+    showToast('Opening download page... Follow instructions on the official site.', 'success')
+    
+    // Log download for analytics
+    const game = allGames.find(g => g.id === gameId)
+    if (game) {
+        console.log(`User downloading: ${game.title} from ${game.download_url}`)
+    }
 }
 
 // Update admin panel games list
