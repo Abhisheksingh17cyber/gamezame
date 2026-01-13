@@ -8,6 +8,24 @@
     <link rel="stylesheet" href="style.css?v=20260115-v3-clickfix">
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎮</text></svg>">
     <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Orbitron:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- CRITICAL FIX: Inline styles to override any cached CSS blocking button clicks -->
+    <style>
+        .game-card::before {
+            display: none !important;
+            content: none !important;
+            pointer-events: none !important;
+        }
+        .game-actions {
+            position: relative !important;
+            z-index: 10 !important;
+        }
+        .download-btn {
+            position: relative !important;
+            z-index: 11 !important;
+            pointer-events: auto !important;
+        }
+    </style>
 </head>
 <body>
     <!-- Particle Background -->
