@@ -868,6 +868,7 @@ body {
     mask-composite: exclude;
     opacity: 0;
     transition: var(--transition-normal);
+    pointer-events: none;
 }
 
 .game-card:hover {
@@ -901,6 +902,7 @@ body {
     position: absolute;
     inset: 0;
     background: linear-gradient(to top, var(--bg-card) 0%, transparent 50%);
+    pointer-events: none;
 }
 
 .game-badge {
@@ -992,6 +994,8 @@ body {
 .game-actions {
     display: flex;
     gap: 10px;
+    position: relative;
+    z-index: 10;
 }
 
 .download-btn {
@@ -1012,6 +1016,8 @@ body {
     text-decoration: none;
     cursor: pointer;
     transition: var(--transition-normal);
+    position: relative;
+    z-index: 10;
 }
 
 .download-btn svg {
