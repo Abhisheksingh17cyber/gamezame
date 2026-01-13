@@ -852,9 +852,10 @@ body {
     background: var(--bg-card);
     border: 1px solid var(--border-color);
     border-radius: 16px;
-    overflow: hidden;
+    overflow: visible;
     transition: var(--transition-normal);
     position: relative;
+    isolation: isolate;
 }
 
 .game-card::before {
@@ -876,6 +877,10 @@ body {
     box-shadow: var(--shadow-lg), 0 0 30px var(--primary-glow);
 }
 
+.game-card:hover .game-actions {
+    pointer-events: auto;
+}
+
 .game-card:hover::before {
     opacity: 1;
 }
@@ -884,6 +889,7 @@ body {
     position: relative;
     height: 180px;
     overflow: hidden;
+    pointer-events: none;
 }
 
 .game-image img {
@@ -948,7 +954,7 @@ body {
 .game-content {
     padding: 20px;
     position: relative;
-    z-index: 5;
+    z-index: 10;
 }
 
 .game-title {
@@ -997,7 +1003,8 @@ body {
     display: flex;
     gap: 10px;
     position: relative;
-    z-index: 100;
+    z-index: 9999;
+    pointer-events: auto;
 }
 
 .download-btn {
@@ -1019,7 +1026,7 @@ body {
     cursor: pointer;
     transition: var(--transition-normal);
     position: relative;
-    z-index: 100;
+    z-index: 9999;
     pointer-events: auto !important;
 }
 
@@ -1046,7 +1053,7 @@ body {
     justify-content: center;
     transition: var(--transition-normal);
     position: relative;
-    z-index: 100;
+    z-index: 9999;
     pointer-events: auto !important;
 }
 
