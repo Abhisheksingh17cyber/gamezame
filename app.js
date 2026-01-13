@@ -298,6 +298,8 @@ function displayGames(games) {
     container.innerHTML = games.map(game => {
         const placeholderImg = getPlaceholderImage(game.category, game.title)
         const imageUrl = game.image_url || placeholderImg
+        const downloadUrl = game.download_url || '#'
+        const hasValidUrl = game.download_url && game.download_url.trim() !== '' && game.download_url !== '#'
         
         return `
         <div class="game-card" data-id="${game.id}">
@@ -318,7 +320,7 @@ function displayGames(games) {
                     <span class="game-category">${getCategoryIcon(game.category)} ${game.category || 'General'}</span>
                 </div>
                 <div class="game-actions">
-                    <a href="${escapeHtml(game.download_url)}" class="download-btn" target="_blank" rel="noopener noreferrer" data-game-id="${game.id}">
+                    <a href="${escapeHtml(downloadUrl)}" class="download-btn${hasValidUrl ? '' : ' disabled'}" ${hasValidUrl ? 'target="_blank" rel="noopener noreferrer"' : ''} data-game-id="${game.id}">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
                             <polyline points="7 10 12 15 17 10"/>
@@ -344,6 +346,15 @@ function displayGames(games) {
         document.querySelectorAll('.download-btn').forEach(btn => {
             btn.addEventListener('click', function(e) {
                 const gameId = this.getAttribute('data-game-id')
+                const href = this.getAttribute('href')
+                
+                // Check if the link is disabled or has no valid URL
+                if (this.classList.contains('disabled') || !href || href === '#' || href === '') {
+                    e.preventDefault()
+                    showToast('Download link not available for this game', 'error')
+                    return
+                }
+                
                 if (gameId) {
                     trackDownload(gameId)
                 }

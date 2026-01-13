@@ -855,7 +855,6 @@ body {
     overflow: visible;
     transition: var(--transition-normal);
     position: relative;
-    isolation: isolate;
 }
 
 .game-card::before {
@@ -875,10 +874,6 @@ body {
 .game-card:hover {
     transform: translateY(-5px);
     box-shadow: var(--shadow-lg), 0 0 30px var(--primary-glow);
-}
-
-.game-card:hover .game-actions {
-    pointer-events: auto;
 }
 
 .game-card:hover::before {
@@ -909,6 +904,7 @@ body {
     inset: 0;
     background: linear-gradient(to top, var(--bg-card) 0%, transparent 50%);
     pointer-events: none;
+    z-index: 1;
 }
 
 .game-badge {
@@ -955,6 +951,7 @@ body {
     padding: 20px;
     position: relative;
     z-index: 10;
+    pointer-events: auto;
 }
 
 .game-title {
@@ -1038,6 +1035,17 @@ body {
 .download-btn:hover {
     box-shadow: 0 0 20px var(--primary-glow);
     transform: translateY(-2px);
+}
+
+.download-btn.disabled {
+    background: rgba(100, 100, 100, 0.3);
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+.download-btn.disabled:hover {
+    box-shadow: none;
+    transform: none;
 }
 
 .delete-btn {
