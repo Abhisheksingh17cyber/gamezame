@@ -567,49 +567,27 @@ init()
 // ENHANCED DOWNLOAD BUTTON CLICK HANDLER
 // ============================================
 document.addEventListener("DOMContentLoaded", () => {
-    // Add direct click listeners to all download buttons
-    const addDownloadClickHandlers = () => {
-        const downloadButtons = document.querySelectorAll('.download-btn, button');
-        
-        downloadButtons.forEach(btn => {
-            const isDownloadBtn = btn.classList.contains('download-btn') || 
-                                  btn.innerText.toLowerCase().includes('download');
+    // Simple, direct approach - just force pointer-events and let natural behavior work
+    const forceDownloadButtonsClickable = () => {
+        document.querySelectorAll('.download-btn').forEach(btn => {
+            // Force styles directly on the element
+            btn.style.pointerEvents = 'auto';
+            btn.style.cursor = 'pointer';
+            btn.style.position = 'relative';
+            btn.style.zIndex = '999999';
             
-            if (isDownloadBtn) {
-                // Force the cursor to pointer
-                btn.style.cursor = "pointer";
-                
-                // Remove existing click listeners and add new one
-                const newBtn = btn.cloneNode(true);
-                btn.parentNode.replaceChild(newBtn, btn);
-                
-                // Add direct click listener with stopPropagation
-                newBtn.addEventListener('click', (e) => {
-                    e.stopPropagation(); // Prevents the card from stealing the click
-                    
-                    const gameCard = newBtn.closest('.game-card');
-                    const gameTitle = gameCard?.querySelector('.game-title')?.innerText || 'Unknown Game';
-                    console.log("Download button clicked for:", gameTitle);
-                    
-                    // If it's a link with href, let it navigate naturally
-                    if (newBtn.tagName === 'A' && newBtn.href && newBtn.href !== '#') {
-                        return; // Allow default link behavior
-                    }
-                }, true); // Use capture phase to ensure we get the event first
-            }
+            // Log clicks for debugging
+            btn.addEventListener('click', (e) => {
+                console.log("✅ Download button clicked successfully!");
+            }, { capture: true, once: false });
         });
     };
     
-    // Initial setup
-    addDownloadClickHandlers();
+    // Run immediately
+    forceDownloadButtonsClickable();
     
-    // Re-run after any dynamic content changes
-    const observer = new MutationObserver(() => {
-        addDownloadClickHandlers();
-    });
-    
-    const gamesGrid = document.getElementById('games-grid');
-    if (gamesGrid) {
-        observer.observe(gamesGrid, { childList: true, subtree: true });
-    }
+    // Run again after a short delay to catch dynamically loaded content
+    setTimeout(forceDownloadButtonsClickable, 1000);
+    setTimeout(forceDownloadButtonsClickable, 2000);
 });
+

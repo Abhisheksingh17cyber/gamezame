@@ -855,6 +855,11 @@ body {
     overflow: hidden;
     transition: var(--transition-normal);
     position: relative;
+    pointer-events: none !important;
+}
+
+.game-card * {
+    pointer-events: auto !important;
 }
 
 .game-card::before {
@@ -953,8 +958,13 @@ body {
 .game-content {
     padding: 20px;
     position: relative;
-    z-index: 100;
+    z-index: 1;
     background: var(--bg-card);
+    pointer-events: none !important;
+}
+
+.game-content * {
+    pointer-events: auto !important;
 }
 
 .game-title {
@@ -1004,24 +1014,39 @@ body {
 }
 
 .game-actions {
-    display: flex;
+    display: flex !important;
     gap: 10px;
-    position: relative;
-    z-index: 100;
-    pointer-events: auto;
+    position: relative !important;
+    z-index: 99999 !important;
+    pointer-events: auto !important;
 }
 
 /* Force card overlays to not interfere with clicks */
+/* Allow all pointer events by default */
+.game-card,
+.game-card * {
+    pointer-events: auto !important;
+}
+
+/* Only block specific decorative elements */
+.game-badge,
+.game-overlay,
+.free-tag,
+.game-title,
+.game-description,
+.game-meta,
+.game-category,
+.game-card::before,
 .game-card::after,
-.game-image-container::after,
-.game-overlay {
+.game-image-container::after {
     pointer-events: none !important;
 }
 
 .download-btn,
-button[class*="download"] {
+button[class*="download"],
+a[class*="download"] {
     flex: 1;
-    display: flex;
+    display: flex !important;
     align-items: center;
     justify-content: center;
     gap: 8px;
@@ -1029,16 +1054,16 @@ button[class*="download"] {
     background: var(--gradient-primary);
     border: none;
     border-radius: 8px;
-    color: white;
+    color: white !important;
     font-family: var(--font-display);
     font-size: 12px;
     font-weight: 600;
     letter-spacing: 1px;
-    text-decoration: none;
+    text-decoration: none !important;
     cursor: pointer !important;
     transition: var(--transition-normal), transform 0.2s ease;
     position: relative !important;
-    z-index: 99 !important;
+    z-index: 999999 !important;
     pointer-events: auto !important;
 }
 
