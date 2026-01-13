@@ -18,22 +18,19 @@ let allGames = []
 let currentView = 'grid'
 
 // Force pointer-events cascade for problematic cards and buttons
+// This is a backup - CSS should handle this now
 function injectPointerFixStyles() {
+    // CSS now handles this properly - this is just a safety backup
     const styleId = 'pointer-fix-overrides'
     if (document.getElementById(styleId)) return
 
     const styleTag = document.createElement('style')
     styleTag.id = styleId
     styleTag.textContent = `
-        .game-card { pointer-events: none !important; }
-        .game-card * { pointer-events: auto !important; }
-        .game-content { pointer-events: none !important; }
-        .game-content * { pointer-events: auto !important; }
-        .download-btn {
-            pointer-events: auto !important;
-            z-index: 999999 !important;
-            position: relative !important;
-        }
+        /* Backup pointer-events fix */
+        .game-actions { pointer-events: auto !important; z-index: 100 !important; }
+        .download-btn { pointer-events: auto !important; cursor: pointer !important; z-index: 1000 !important; }
+        .delete-btn { pointer-events: auto !important; cursor: pointer !important; }
     `
     document.head.appendChild(styleTag)
 }

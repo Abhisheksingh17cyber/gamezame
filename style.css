@@ -847,7 +847,11 @@ body {
     letter-spacing: 2px;
 }
 
-/* Game Card */
+/* ============================================
+   GAME CARD - FIXED FOR CLICK ISSUES
+   ============================================ */
+
+/* REMOVED pointer-events: none from game-card */
 .game-card {
     background: var(--bg-card);
     border: 1px solid var(--border-color);
@@ -855,11 +859,13 @@ body {
     overflow: hidden;
     transition: var(--transition-normal);
     position: relative;
-    pointer-events: none !important;
+    /* NO pointer-events manipulation here */
 }
 
-.game-card * {
-    pointer-events: auto !important;
+/* Only block pointer events on decorative pseudo-elements */
+.game-card::before,
+.game-card::after {
+    pointer-events: none !important;
 }
 
 .game-card::before {
@@ -873,7 +879,6 @@ body {
     mask-composite: exclude;
     opacity: 0;
     transition: var(--transition-normal);
-    pointer-events: none;
 }
 
 .game-card:hover {
@@ -889,7 +894,6 @@ body {
     position: relative;
     height: 180px;
     overflow: hidden;
-    pointer-events: none;
 }
 
 .game-image img {
@@ -908,7 +912,7 @@ body {
     position: absolute;
     inset: 0;
     background: linear-gradient(to top, var(--bg-card) 0%, transparent 50%);
-    pointer-events: none;
+    pointer-events: none !important;
     z-index: 1;
 }
 
@@ -923,9 +927,9 @@ body {
     font-weight: 700;
     padding: 4px 10px;
     border-radius: 4px;
-    pointer-events: none;
+    pointer-events: none !important;
     letter-spacing: 1px;
-    z-index: 1;
+    z-index: 2;
 }
 
 .game-overlay {
@@ -933,7 +937,7 @@ body {
     top: 12px;
     left: 12px;
     z-index: 2;
-    pointer-events: none;
+    pointer-events: none !important;
 }
 
 .free-tag {
@@ -947,7 +951,7 @@ body {
     letter-spacing: 1px;
     box-shadow: 0 2px 10px rgba(0, 255, 136, 0.4);
     animation: pulse-free 2s ease-in-out infinite;
-    pointer-events: none;
+    pointer-events: none !important;
 }
 
 @keyframes pulse-free {
@@ -955,18 +959,16 @@ body {
     50% { box-shadow: 0 2px 20px rgba(0, 255, 136, 0.8); }
 }
 
+/* Ensure game content allows clicks */
 .game-content {
     padding: 20px;
     position: relative;
     z-index: 1;
     background: var(--bg-card);
-    pointer-events: none !important;
+    /* NO pointer-events manipulation here */
 }
 
-.game-content * {
-    pointer-events: auto !important;
-}
-
+/* Ensure text elements don't block clicks */
 .game-title {
     font-family: var(--font-display);
     font-size: 1rem;
@@ -974,7 +976,7 @@ body {
     color: var(--text-primary);
     margin-bottom: 8px;
     letter-spacing: 1px;
-    pointer-events: none;
+    pointer-events: none !important;
 }
 
 .game-description {
@@ -987,7 +989,7 @@ body {
     line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
-    pointer-events: none;
+    pointer-events: none !important;
 }
 
 .game-meta {
@@ -995,7 +997,7 @@ body {
     align-items: center;
     justify-content: space-between;
     margin-bottom: 15px;
-    pointer-events: none;
+    pointer-events: none !important;
 }
 
 .game-category {
@@ -1010,38 +1012,19 @@ body {
     padding: 6px 12px;
     border-radius: 6px;
     letter-spacing: 1px;
-    pointer-events: none;
+    pointer-events: none !important;
 }
 
+/* Make sure actions container is fully clickable */
 .game-actions {
     display: flex !important;
     gap: 10px;
     position: relative !important;
-    z-index: 99999 !important;
+    z-index: 100 !important;
     pointer-events: auto !important;
 }
 
-/* Force card overlays to not interfere with clicks */
-/* Allow all pointer events by default */
-.game-card,
-.game-card * {
-    pointer-events: auto !important;
-}
-
-/* Only block specific decorative elements */
-.game-badge,
-.game-overlay,
-.free-tag,
-.game-title,
-.game-description,
-.game-meta,
-.game-category,
-.game-card::before,
-.game-card::after,
-.game-image-container::after {
-    pointer-events: none !important;
-}
-
+/* Download button - simplified and guaranteed clickable */
 .download-btn,
 button[class*="download"],
 a[class*="download"] {
@@ -1063,13 +1046,14 @@ a[class*="download"] {
     cursor: pointer !important;
     transition: var(--transition-normal), transform 0.2s ease;
     position: relative !important;
-    z-index: 999999 !important;
+    z-index: 1000 !important;
     pointer-events: auto !important;
 }
 
 .download-btn svg {
     width: 16px;
     height: 16px;
+    pointer-events: none;
 }
 
 .download-btn:hover {
@@ -1078,17 +1062,23 @@ a[class*="download"] {
     filter: brightness(1.2);
 }
 
+.download-btn:active {
+    transform: scale(0.98) translateY(0);
+}
+
 .download-btn.disabled {
     background: rgba(100, 100, 100, 0.3);
-    cursor: not-allowed;
+    cursor: not-allowed !important;
     opacity: 0.6;
 }
 
 .download-btn.disabled:hover {
     box-shadow: none;
     transform: none;
+    filter: none;
 }
 
+/* Delete button */
 .delete-btn {
     width: 44px;
     height: 44px;
@@ -1096,14 +1086,14 @@ a[class*="download"] {
     border: 1px solid var(--primary);
     border-radius: 8px;
     color: var(--primary);
-    cursor: pointer;
+    cursor: pointer !important;
     display: flex;
     align-items: center;
     justify-content: center;
     transition: var(--transition-normal);
     position: relative;
-    z-index: 1;
-    pointer-events: auto;
+    z-index: 1000;
+    pointer-events: auto !important;
 }
 
 .delete-btn svg {
@@ -1114,6 +1104,7 @@ a[class*="download"] {
 .delete-btn:hover {
     background: var(--primary);
     color: white;
+    transform: scale(1.05);
 }
 
 /* No Games */
