@@ -1045,6 +1045,9 @@ body {
     align-items: center;
     justify-content: center;
     transition: var(--transition-normal);
+    position: relative;
+    z-index: 100;
+    pointer-events: auto !important;
 }
 
 .delete-btn svg {
