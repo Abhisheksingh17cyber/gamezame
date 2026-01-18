@@ -1,4 +1,4 @@
-import { useRef } from 'react'
+import { useState } from 'react'
 
 interface Particle {
   id: number
@@ -10,7 +10,7 @@ interface Particle {
   opacity: number
 }
 
-function generateParticles(): Particle[] {
+const generateParticles = (): Particle[] => {
   return Array.from({ length: 30 }, (_, i) => ({
     id: i,
     size: Math.random() * 3 + 1,
@@ -23,8 +23,7 @@ function generateParticles(): Particle[] {
 }
 
 export function ParticleBackground() {
-  const particlesRef = useRef<Particle[]>(generateParticles())
-  const particles = particlesRef.current
+  const [particles] = useState<Particle[]>(generateParticles)
 
   return (
     <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">

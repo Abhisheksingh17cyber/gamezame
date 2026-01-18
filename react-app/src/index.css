@@ -3,32 +3,39 @@
 @import "tailwindcss";
 
 /* ============================================
-   PREMIUM GAMING THEME - GOLDEN & BLACK
+   PREMIUM GAMING THEME - ROYAL BLUE, RED & BLACK
    ============================================ */
 
 @theme {
-  --color-gold: #d4af37;
-  --color-gold-light: #f5d861;
-  --color-gold-dark: #9a7b2f;
+  --color-blue: #4169e1;
+  --color-blue-light: #6495ed;
+  --color-blue-dark: #1e3a8a;
+  --color-blue-royal: #0047ab;
+  --color-red: #dc2626;
+  --color-red-dark: #991b1b;
+  --color-red-light: #ef4444;
   --color-black-pure: #000000;
   --color-black: #0a0a0a;
-  --color-black-light: #121212;
-  --color-black-card: #161616;
+  --color-black-light: #0f0f0f;
+  --color-black-card: #141414;
   --color-black-surface: #1a1a1a;
   --color-gray-900: #1f1f1f;
-  --color-gray-800: #2a2a2a;
-  --color-gray-700: #3a3a3a;
+  --color-gray-800: #262626;
+  --color-gray-700: #333333;
   --color-gray-600: #4a4a4a;
-  --color-gray-500: #6a6a6a;
-  --color-gray-400: #8a8a8a;
-  --color-gray-300: #aaaaaa;
+  --color-gray-500: #6b7280;
+  --color-gray-400: #9ca3af;
+  --color-gray-300: #d1d5db;
   --color-white: #ffffff;
 }
 
 :root {
-  --gold: #d4af37;
-  --gold-light: #f5d861;
-  --gold-dark: #9a7b2f;
+  --blue: #4169e1;
+  --blue-light: #6495ed;
+  --blue-dark: #1e3a8a;
+  --blue-royal: #0047ab;
+  --red: #dc2626;
+  --red-dark: #991b1b;
 }
 
 * {
@@ -64,16 +71,16 @@ body {
   background: #0a0a0a;
 }
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, #d4af37, #9a7b2f);
+  background: linear-gradient(180deg, #4169e1, #1e3a8a);
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #f5d861;
+  background: #6495ed;
 }
 
 ::selection {
-  background: #d4af37;
-  color: #0a0a0a;
+  background: #4169e1;
+  color: #ffffff;
 }
 
 /* ============================================
@@ -84,58 +91,95 @@ body {
   font-family: 'Playfair Display', Georgia, serif;
 }
 
-.text-gradient-gold {
-  background: linear-gradient(135deg, #f5d861 0%, #d4af37 50%, #9a7b2f 100%);
+.text-gradient-blue {
+  background: linear-gradient(135deg, #6495ed 0%, #4169e1 50%, #1e3a8a 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.text-gradient-red {
+  background: linear-gradient(135deg, #ef4444 0%, #dc2626 50%, #991b1b 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
 /* ============================================
-   BUTTONS
+   BUTTONS - Professional Design
    ============================================ */
 
-.btn-gold {
+.btn-blue {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 0.5rem;
-  padding: 0.875rem 2rem;
-  background: linear-gradient(135deg, #f5d861 0%, #d4af37 50%, #9a7b2f 100%);
-  color: #0a0a0a;
-  font-weight: 600;
-  font-size: 0.875rem;
-  letter-spacing: 0.05em;
+  gap: 0.625rem;
+  padding: 1rem 2.5rem;
+  background: linear-gradient(135deg, #4169e1 0%, #0047ab 100%);
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 0.9375rem;
+  letter-spacing: 0.03em;
   text-transform: uppercase;
   border: none;
+  border-radius: 0.5rem;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 20px rgba(65, 105, 225, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.05);
 }
-.btn-gold:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 30px rgba(212, 175, 55, 0.4);
+.btn-blue:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 40px rgba(65, 105, 225, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.1);
+  background: linear-gradient(135deg, #6495ed 0%, #4169e1 100%);
 }
 
-.btn-outline-gold {
+.btn-red {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 0.5rem;
-  padding: 0.875rem 2rem;
-  background: transparent;
-  color: #d4af37;
-  font-weight: 600;
-  font-size: 0.875rem;
-  letter-spacing: 0.05em;
+  gap: 0.625rem;
+  padding: 1rem 2.5rem;
+  background: linear-gradient(135deg, #dc2626 0%, #991b1b 100%);
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 0.9375rem;
+  letter-spacing: 0.03em;
   text-transform: uppercase;
-  border: 2px solid #d4af37;
+  border: none;
+  border-radius: 0.5rem;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 20px rgba(220, 38, 38, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.05);
 }
-.btn-outline-gold:hover {
-  background: #d4af37;
-  color: #0a0a0a;
-  transform: translateY(-2px);
+.btn-red:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 40px rgba(220, 38, 38, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.1);
+  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+}
+
+.btn-outline-blue {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.625rem;
+  padding: 1rem 2.5rem;
+  background: rgba(65, 105, 225, 0.05);
+  color: #4169e1;
+  font-weight: 600;
+  font-size: 0.9375rem;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  border: 2px solid #4169e1;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  backdrop-filter: blur(10px);
+}
+.btn-outline-blue:hover {
+  background: #4169e1;
+  color: #ffffff;
+  transform: translateY(-3px);
+  box-shadow: 0 8px 30px rgba(65, 105, 225, 0.4);
 }
 
 /* ============================================
@@ -145,28 +189,38 @@ body {
 .input-premium {
   width: 100%;
   padding: 1rem 1.25rem;
-  background: #161616;
-  border: 1px solid #2a2a2a;
+  background: #141414;
+  border: 1px solid #262626;
+  border-radius: 0.5rem;
   color: #ffffff;
   font-size: 0.9375rem;
-  transition: all 0.3s ease;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 .input-premium:focus {
   outline: none;
-  border-color: #d4af37;
-  box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
+  border-color: #4169e1;
+  background: #1a1a1a;
+  box-shadow: 0 0 0 3px rgba(65, 105, 225, 0.15), 0 4px 12px rgba(65, 105, 225, 0.1);
 }
 .input-premium::placeholder {
-  color: #6a6a6a;
+  color: #6b7280;
 }
 
 /* ============================================
-   CARDS
+   CARDS - Professional Design
    ============================================ */
 
 .card-premium {
-  background: #161616;
-  border: 1px solid #2a2a2a;
+  background: linear-gradient(135deg, #141414 0%, #0f0f0f 100%);
+  border: 1px solid #262626;
+  border-radius: 0.75rem;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.card-premium:hover {
+  border-color: #4169e1;
+  box-shadow: 0 8px 32px rgba(65, 105, 225, 0.15);
+  transform: translateY(-4px);
+}
   transition: all 0.4s ease;
 }
 .card-premium:hover {
