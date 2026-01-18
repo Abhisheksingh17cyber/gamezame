@@ -37,9 +37,11 @@ interface GameState {
 }
 
 interface UIState {
-  currentSection: 'games' | 'categories' | 'admin'
+  currentSection: 'home' | 'games' | 'categories' | 'admin'
+  activeSection: 'home' | 'games' | 'categories' | 'admin'
   isLoadingScreen: boolean
-  setCurrentSection: (section: 'games' | 'categories' | 'admin') => void
+  setCurrentSection: (section: 'home' | 'games' | 'categories' | 'admin') => void
+  setActiveSection: (section: 'home' | 'games' | 'categories' | 'admin') => void
   setIsLoadingScreen: (isLoading: boolean) => void
 }
 
@@ -215,10 +217,12 @@ export const useGameStore = create<GameState>((set, get) => ({
 }))
 
 export const useUIStore = create<UIState>((set) => ({
-  currentSection: 'games',
+  currentSection: 'home',
+  activeSection: 'home',
   isLoadingScreen: true,
 
-  setCurrentSection: (currentSection) => set({ currentSection }),
+  setCurrentSection: (currentSection) => set({ currentSection, activeSection: currentSection }),
+  setActiveSection: (activeSection) => set({ activeSection, currentSection: activeSection }),
   setIsLoadingScreen: (isLoadingScreen) => set({ isLoadingScreen }),
 }))
 
@@ -236,7 +240,7 @@ export const categories = [
   { id: 'indie', name: 'Indie', icon: '💎', description: 'Hidden gems', color: 'from-pink-500 to-purple-500' },
 ]
 
-export const getCategoryIcon = (category: string | null) => {
+export const getCategoryIcon = (category: string | null): string => {
   const icons: Record<string, string> = {
     Action: '⚔️',
     Adventure: '🗺️',

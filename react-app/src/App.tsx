@@ -118,6 +118,11 @@ function App() {
       {/* Main Content */}
       <main className="flex-1 relative z-10">
         <AnimatePresence mode="wait">
+          {currentSection === 'home' && (
+            <div key="home">
+              <HeroSection />
+            </div>
+          )}
           {currentSection === 'games' && (
             <div key="games">
               <HeroSection />
