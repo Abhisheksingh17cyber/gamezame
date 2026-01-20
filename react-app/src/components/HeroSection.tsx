@@ -9,8 +9,8 @@ export function HeroSection() {
   return (
     <section className="min-h-screen flex items-center justify-center pt-32 pb-24 px-6 relative overflow-hidden">
       {/* Professional gradient background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-black via-blue-dark/10 to-black pointer-events-none" />
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-blue/8 via-transparent to-transparent pointer-events-none" />
+      <div className="absolute inset-0 bg-linear-to-br from-black via-blue-dark/10 to-black pointer-events-none" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,var(--tw-gradient-stops))] from-blue/8 via-transparent to-transparent pointer-events-none" />
       
       {/* Animated accent circles */}
       <div className="absolute top-1/4 -left-32 w-96 h-96 bg-blue/10 rounded-full blur-3xl animate-pulse" />
@@ -24,7 +24,7 @@ export function HeroSection() {
         >
           {/* Premium Badge with modern design */}
           <motion.div 
-            className="inline-flex items-center gap-3 px-8 py-3 bg-gradient-to-r from-blue/10 via-blue/20 to-blue/10 backdrop-blur-xl border border-blue/40 rounded-full mb-10 shadow-2xl shadow-blue/20"
+            className="inline-flex items-center gap-3 px-8 py-3 bg-linear-to-r from-blue/10 via-blue/20 to-blue/10 backdrop-blur-xl border border-blue/40 rounded-full mb-10 shadow-2xl shadow-blue/20"
             initial={{ scale: 0.9, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{ delay: 0.2, duration: 0.5 }}
@@ -36,7 +36,7 @@ export function HeroSection() {
           {/* Main Heading with professional typography */}
           <h1 className="font-display text-7xl md:text-8xl lg:text-9xl font-black text-white mb-10 leading-[0.95]">
             <span className="block">Discover The</span>
-            <span className="block mt-4 bg-gradient-to-r from-blue-light via-blue to-red bg-clip-text text-transparent drop-shadow-2xl [text-shadow:_0_0_40px_rgba(65,105,225,0.3)]">
+            <span className="block mt-4 bg-linear-to-r from-blue-light via-blue to-red bg-clip-text text-transparent drop-shadow-2xl [text-shadow:0_0_40px_rgba(65,105,225,0.3)]">
               Ultimate Collection
             </span>
           </h1>
@@ -85,8 +85,8 @@ export function HeroSection() {
                 transition={{ delay: 0.5 + i * 0.1, duration: 0.5 }}
                 className="relative group"
               >
-                <div className={`absolute inset-0 bg-gradient-to-br ${stat.color === 'red' ? 'from-red/20' : 'from-blue/20'} to-transparent blur-2xl group-hover:blur-3xl transition-all duration-500 opacity-0 group-hover:opacity-100`} />
-                <div className={`relative p-8 bg-gradient-to-br from-black-card to-black-light backdrop-blur-xl border ${stat.color === 'red' ? 'border-red/30 hover:border-red/60' : 'border-blue/30 hover:border-blue/60'} rounded-2xl transition-all duration-500 hover:scale-105`}>
+                <div className={`absolute inset-0 bg-linear-to-br ${stat.color === 'red' ? 'from-red/20' : 'from-blue/20'} to-transparent blur-2xl group-hover:blur-3xl transition-all duration-500 opacity-0 group-hover:opacity-100`} />
+                <div className={`relative p-8 bg-linear-to-br from-black-card to-black-light backdrop-blur-xl border ${stat.color === 'red' ? 'border-red/30 hover:border-red/60' : 'border-blue/30 hover:border-blue/60'} rounded-2xl transition-all duration-500 hover:scale-105`}>
                   <p className={`text-4xl md:text-5xl font-black mb-3 ${stat.color === 'red' ? 'text-red' : 'text-blue'} tracking-tight`}>
                     {stat.value}
                   </p>

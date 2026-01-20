@@ -55,7 +55,7 @@ export function AuthSection() {
       <ParticleBackground />
       
       {/* Professional background elements */}
-      <div className="absolute inset-0 bg-gradient-to-br from-blue/5 via-black to-red/5 pointer-events-none" />
+      <div className="absolute inset-0 bg-linear-to-br from-blue/5 via-black to-red/5 pointer-events-none" />
       <div className="absolute top-1/4 -left-32 w-96 h-96 bg-blue/10 rounded-full blur-3xl animate-pulse" />
       <div className="absolute bottom-1/4 -right-32 w-96 h-96 bg-red/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
 
@@ -74,7 +74,7 @@ export function AuthSection() {
             className="inline-flex items-center justify-center mb-8"
           >
             <div className="relative">
-              <div className="absolute inset-0 bg-gradient-to-r from-blue-light to-blue blur-2xl opacity-60" />
+              <div className="absolute inset-0 bg-linear-to-r from-blue-light to-blue blur-2xl opacity-60" />
               <div 
                 className="relative w-24 h-24 rounded-3xl flex items-center justify-center shadow-2xl border border-blue/30"
                 style={{ background: 'linear-gradient(135deg, #4169e1, #0047ab)' }}
@@ -85,7 +85,7 @@ export function AuthSection() {
           </motion.div>
 
           <h1 className="font-display text-5xl font-black mb-3">
-            <span className="bg-gradient-to-r from-white via-blue-light to-white bg-clip-text text-transparent">
+            <span className="bg-linear-to-r from-white via-blue-light to-white bg-clip-text text-transparent">
               GAMEZAME
             </span>
           </h1>
@@ -102,9 +102,9 @@ export function AuthSection() {
           className="relative"
         >
           {/* Card glow */}
-          <div className="absolute -inset-1 bg-gradient-to-r from-blue/20 via-blue-dark/20 to-blue/20 rounded-3xl opacity-60 blur-xl" />
+          <div className="absolute -inset-1 bg-linear-to-r from-blue/20 via-blue-dark/20 to-blue/20 rounded-3xl opacity-60 blur-xl" />
           
-          <div className="relative bg-gradient-to-br from-black-card to-black-light border border-blue/20 rounded-3xl p-10 shadow-2xl backdrop-blur-xl">
+          <div className="relative bg-linear-to-br from-black-card to-black-light border border-blue/20 rounded-3xl p-10 shadow-2xl backdrop-blur-xl">
             <form onSubmit={handleLogin} className="space-y-7">
               {/* Email with professional styling */}
               <div>

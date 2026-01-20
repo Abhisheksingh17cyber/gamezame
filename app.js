@@ -381,24 +381,32 @@ function displayGames(games) {
     // Add event listeners for download buttons
     setTimeout(() => {
         document.querySelectorAll('.download-btn').forEach(btn => {
-            btn.addEventListener('click', function(e) {
+            // Remove any existing click handlers that might interfere
+            const newBtn = btn.cloneNode(true);
+            btn.parentNode.replaceChild(newBtn, btn);
+            
+            newBtn.addEventListener('click', function(e) {
                 const gameId = this.getAttribute('data-game-id')
                 const href = this.getAttribute('href')
                 
                 // Check if the link is disabled or has no valid URL
-                if (this.classList.contains('disabled') || !href || href === '#' || href === '') {
+                if (this.classList.contains('disabled') || !href || href === '#' || href === '' || href === 'undefined') {
                     e.preventDefault()
+                    e.stopPropagation()
                     showToast('Download link not available for this game', 'error')
-                    return
+                    return false
                 }
                 
+                // Show success toast and track download
                 if (gameId) {
                     trackDownload(gameId)
                 }
-                // Let the link's default behavior proceed
+                
+                // Allow the default anchor behavior (open link in new tab)
+                return true
             })
         })
-    }, 0)
+    }, 100)
 }
 
 // Track downloads
@@ -614,10 +622,10 @@ document.addEventListener("DOMContentLoaded", () => {
             btn.style.position = 'relative';
             btn.style.zIndex = '999999';
             
-            // Log clicks for debugging
-            btn.addEventListener('click', (e) => {
-                console.log("✅ Download button clicked successfully!");
-            }, { capture: true, once: false });
+            // Ensure the anchor tag works correctly
+            if (btn.tagName === 'A' && btn.getAttribute('href') && btn.getAttribute('href') !== '#') {
+                btn.style.display = 'inline-flex';
+            }
         });
     };
     

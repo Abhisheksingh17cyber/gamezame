@@ -2,7 +2,7 @@
 
 export function Footer() {
   return (
-    <footer className="py-16 px-6 border-t border-blue/10 bg-gradient-to-b from-black to-black-card">
+    <footer className="py-16 px-6 border-t border-blue/10 bg-linear-to-b from-black to-black-card">
       <div className="max-w-7xl mx-auto">
         <div className="flex flex-col md:flex-row items-center justify-between gap-8">
           {/* Logo with professional design */}
@@ -14,7 +14,7 @@ export function Footer() {
               <Gamepad2 className="w-5 h-5 text-white" />
             </div>
             <div>
-              <span className="font-display text-lg font-black bg-gradient-to-r from-white via-blue-light to-white bg-clip-text text-transparent tracking-tight">GAMEZAME</span>
+              <span className="font-display text-lg font-black bg-linear-to-r from-white via-blue-light to-white bg-clip-text text-transparent tracking-tight">GAMEZAME</span>
               <p className="text-[10px] text-blue/60 uppercase tracking-[0.2em] font-semibold">Premium Gaming</p>
             </div>
           </div>

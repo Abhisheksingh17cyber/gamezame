@@ -22,7 +22,7 @@ export function Navbar() {
           {/* Logo with professional royal blue design */}
           <div className="flex items-center gap-4 group cursor-pointer">
             <div className="relative">
-              <div className="absolute inset-0 bg-gradient-to-r from-blue-light to-blue blur-lg group-hover:blur-xl transition-all opacity-60 group-hover:opacity-100" />
+              <div className="absolute inset-0 bg-linear-to-r from-blue-light to-blue blur-lg group-hover:blur-xl transition-all opacity-60 group-hover:opacity-100" />
               <div 
                 className="relative w-12 h-12 rounded-xl flex items-center justify-center shadow-2xl shadow-blue/30 border border-blue/30"
                 style={{ background: 'linear-gradient(135deg, #4169e1, #0047ab)' }}
@@ -31,7 +31,7 @@ export function Navbar() {
               </div>
             </div>
             <div>
-              <span className="font-display text-2xl font-black bg-gradient-to-r from-white via-blue-light to-white bg-clip-text text-transparent tracking-tight">
+              <span className="font-display text-2xl font-black bg-linear-to-r from-white via-blue-light to-white bg-clip-text text-transparent tracking-tight">
                 GAMEZAME
               </span>
               <p className="text-[10px] text-blue/80 uppercase tracking-[0.25em] font-bold -mt-1">Premium Gaming Hub</p>
@@ -47,7 +47,7 @@ export function Navbar() {
                 <button
                   key={item.id}
                   onClick={() => setActiveSection(item.id as typeof activeSection)}
-                  className={`relative px-6 py-3 flex items-center gap-2.5 font-bold text-sm uppercase tracking-[0.1em] transition-all duration-300 rounded-lg ${
+                  className={`relative px-6 py-3 flex items-center gap-2.5 font-bold text-sm uppercase tracking-widest transition-all duration-300 rounded-lg ${
                     isActive 
                       ? 'text-blue bg-blue/10' 
                       : 'text-gray-400 hover:text-white hover:bg-white/5'
@@ -58,7 +58,7 @@ export function Navbar() {
                   {isActive && (
                     <motion.div 
                       layoutId="activeTab"
-                      className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-light via-blue to-blue-dark rounded-t-full"
+                      className="absolute bottom-0 left-0 right-0 h-1 bg-linear-to-r from-blue-light via-blue to-blue-dark rounded-t-full"
                       transition={{ type: "spring", stiffness: 400, damping: 32 }}
                     />
                   )}
@@ -69,8 +69,8 @@ export function Navbar() {
 
           {/* User Section with professional styling */}
           <div className="hidden md:flex items-center gap-4">
-            <div className="text-right px-5 py-2.5 bg-gradient-to-br from-black-card to-black-light backdrop-blur-xl border border-blue/20 rounded-xl shadow-lg">
-              <p className="text-sm text-white font-black uppercase tracking-[0.1em] flex items-center gap-2">
+            <div className="text-right px-5 py-2.5 bg-linear-to-br from-black-card to-black-light backdrop-blur-xl border border-blue/20 rounded-xl shadow-lg">
+              <p className="text-sm text-white font-black uppercase tracking-widest flex items-center gap-2">
                 {isAdmin && <Crown className="w-4 h-4 text-blue animate-pulse" />}
                 {isAdmin ? 'Administrator' : 'Player'}
               </p>

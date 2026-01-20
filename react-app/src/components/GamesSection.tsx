@@ -18,7 +18,7 @@ export function GamesSection() {
   const displayGames = filteredGames.length > 0 || categoryFilter || searchInput ? filteredGames : games
 
   return (
-    <section className="py-24 px-6 bg-gradient-to-b from-black to-black-card">
+    <section className="py-24 px-6 bg-linear-to-b from-black to-black-card">
       <div className="max-w-7xl mx-auto">
         {/* Professional Header */}
         <div className="text-center mb-16">
@@ -30,7 +30,7 @@ export function GamesSection() {
             <span className="text-sm text-blue-light font-bold uppercase tracking-[0.15em]">Game Library</span>
           </motion.div>
           <h2 className="font-display text-5xl md:text-6xl font-black text-white mb-6">
-            <span className="bg-gradient-to-r from-white via-blue-light to-white bg-clip-text text-transparent">
+            <span className="bg-linear-to-r from-white via-blue-light to-white bg-clip-text text-transparent">
               Explore Premium Games
             </span>
           </h2>
@@ -92,7 +92,7 @@ export function GamesSection() {
                 whileTap={{ scale: 0.95 }}
                 className={`px-6 py-3 text-sm font-bold uppercase tracking-wider rounded-xl transition-all duration-300 ${
                   isActive
-                    ? 'bg-gradient-to-r from-blue to-blue-dark text-white shadow-lg shadow-blue/30 border border-blue/50'
+                    ? 'bg-linear-to-r from-blue to-blue-dark text-white shadow-lg shadow-blue/30 border border-blue/50'
                     : 'bg-black-card text-gray-400 border border-gray-800 hover:border-blue/40 hover:text-blue hover:bg-blue/5'
                 }`}
               >

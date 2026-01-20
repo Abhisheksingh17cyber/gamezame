@@ -41,9 +41,9 @@ export function GameCard({ game }: GameCardProps) {
       className="game-card group relative"
     >
       {/* Professional card border glow */}
-      <div className="absolute -inset-0.5 bg-gradient-to-r from-blue/20 via-blue-dark/20 to-blue/20 rounded-2xl opacity-0 group-hover:opacity-100 blur-sm transition-all duration-500" />
+      <div className="absolute -inset-0.5 bg-linear-to-r from-blue/20 via-blue-dark/20 to-blue/20 rounded-2xl opacity-0 group-hover:opacity-100 blur-sm transition-all duration-500" />
       
-      <div className="relative bg-gradient-to-br from-black-card to-black-light rounded-2xl overflow-hidden border border-gray-800 group-hover:border-blue/40 transition-all duration-500">
+      <div className="relative bg-linear-to-br from-black-card to-black-light rounded-2xl overflow-hidden border border-gray-800 group-hover:border-blue/40 transition-all duration-500">
         {/* Image */}
         <div className="relative aspect-video overflow-hidden">
           <img
@@ -54,7 +54,7 @@ export function GameCard({ game }: GameCardProps) {
               e.currentTarget.src = getPlaceholderImage(game.category, game.title)
             }}
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent opacity-70" />
+          <div className="absolute inset-0 bg-linear-to-t from-black via-black/50 to-transparent opacity-70" />
           
           {/* Category Badge with blue accent */}
           <div className="absolute top-4 left-4">
@@ -113,7 +113,7 @@ export function GameCard({ game }: GameCardProps) {
           </p>
 
           <div className="flex items-center justify-between pt-4 border-t border-gray-800">
-            <span className="inline-flex items-center gap-2 text-xs text-blue font-bold uppercase tracking-[0.1em] bg-blue/10 px-3 py-1.5 rounded-lg">
+            <span className="inline-flex items-center gap-2 text-xs text-blue font-bold uppercase tracking-widest bg-blue/10 px-3 py-1.5 rounded-lg">
               100% Free
             </span>
             {isAdmin && (

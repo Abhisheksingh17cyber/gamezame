@@ -15,7 +15,7 @@ export function CategoriesSection() {
   }
 
   return (
-    <section className="py-24 px-6 bg-gradient-to-b from-black-card to-black">
+    <section className="py-24 px-6 bg-linear-to-b from-black-card to-black">
       <div className="max-w-7xl mx-auto">
         {/* Professional Header */}
         <div className="text-center mb-20">
@@ -27,7 +27,7 @@ export function CategoriesSection() {
             <span className="text-sm text-red-light font-bold uppercase tracking-[0.15em]">Browse by Genre</span>
           </motion.div>
           <h2 className="font-display text-5xl md:text-6xl font-black text-white mb-6">
-            <span className="bg-gradient-to-r from-white via-red-light to-white bg-clip-text text-transparent">
+            <span className="bg-linear-to-r from-white via-red-light to-white bg-clip-text text-transparent">
               Game Categories
             </span>
           </h2>
@@ -52,11 +52,11 @@ export function CategoriesSection() {
                 className="group relative"
               >
                 {/* Glow effect on hover */}
-                <div className="absolute -inset-1 bg-gradient-to-r from-blue/30 via-red/30 to-blue/30 rounded-2xl opacity-0 group-hover:opacity-100 blur-lg transition-all duration-500" />
+                <div className="absolute -inset-1 bg-linear-to-r from-blue/30 via-red/30 to-blue/30 rounded-2xl opacity-0 group-hover:opacity-100 blur-lg transition-all duration-500" />
                 
-                <div className="relative p-8 bg-gradient-to-br from-black-card to-black-light border border-gray-800 group-hover:border-blue/50 rounded-2xl transition-all duration-500 h-full flex flex-col items-center justify-center text-center">
+                <div className="relative p-8 bg-linear-to-br from-black-card to-black-light border border-gray-800 group-hover:border-blue/50 rounded-2xl transition-all duration-500 h-full flex flex-col items-center justify-center text-center">
                   {/* Icon with gradient background */}
-                  <div className="w-20 h-20 mb-5 flex items-center justify-center rounded-2xl bg-gradient-to-br from-blue/10 to-red/10 group-hover:from-blue/20 group-hover:to-red/20 border border-blue/20 group-hover:border-blue/40 transition-all duration-500">
+                  <div className="w-20 h-20 mb-5 flex items-center justify-center rounded-2xl bg-linear-to-br from-blue/10 to-red/10 group-hover:from-blue/20 group-hover:to-red/20 border border-blue/20 group-hover:border-blue/40 transition-all duration-500">
                     <span className="text-5xl filter drop-shadow-lg">{category.icon}</span>
                   </div>
                   

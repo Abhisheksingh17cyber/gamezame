@@ -44,7 +44,7 @@ export function AdminSection() {
   }
 
   return (
-    <section className="py-24 px-6 bg-gradient-to-b from-black to-black-card min-h-screen">
+    <section className="py-24 px-6 bg-linear-to-b from-black to-black-card min-h-screen">
       <div className="max-w-6xl mx-auto">
         {/* Professional Header */}
         <div className="text-center mb-16">
@@ -56,7 +56,7 @@ export function AdminSection() {
             <span className="text-sm text-blue-light font-bold uppercase tracking-[0.15em]">Administration</span>
           </motion.div>
           <h2 className="font-display text-5xl md:text-6xl font-black mb-4">
-            <span className="bg-gradient-to-r from-white via-blue-light to-white bg-clip-text text-transparent">
+            <span className="bg-linear-to-r from-white via-blue-light to-white bg-clip-text text-transparent">
               Admin Dashboard
             </span>
           </h2>
@@ -69,9 +69,9 @@ export function AdminSection() {
           animate={{ opacity: 1, y: 0 }}
           className="relative mb-16"
         >
-          <div className="absolute -inset-1 bg-gradient-to-r from-blue/20 via-blue-dark/20 to-blue/20 rounded-3xl opacity-60 blur-xl" />
+          <div className="absolute -inset-1 bg-linear-to-r from-blue/20 via-blue-dark/20 to-blue/20 rounded-3xl opacity-60 blur-xl" />
           
-          <div className="relative bg-gradient-to-br from-black-card to-black-light border border-blue/20 rounded-3xl p-8 md:p-10 shadow-2xl">
+          <div className="relative bg-linear-to-br from-black-card to-black-light border border-blue/20 rounded-3xl p-8 md:p-10 shadow-2xl">
             <div className="flex items-center gap-3 mb-8">
               <div className="w-10 h-10 rounded-xl bg-blue/20 flex items-center justify-center">
                 <Plus className="w-6 h-6 text-blue" />
@@ -181,9 +181,9 @@ export function AdminSection() {
                 transition={{ delay: index * 0.03 }}
                 className="group relative"
               >
-                <div className="absolute -inset-0.5 bg-gradient-to-r from-blue/10 to-red/10 rounded-2xl opacity-0 group-hover:opacity-100 blur-sm transition-all duration-500" />
+                <div className="absolute -inset-0.5 bg-linear-to-r from-blue/10 to-red/10 rounded-2xl opacity-0 group-hover:opacity-100 blur-sm transition-all duration-500" />
                 
-                <div className="relative flex items-center justify-between p-6 bg-gradient-to-br from-black-card to-black-light border border-gray-800 group-hover:border-blue/40 rounded-2xl transition-all duration-500">
+                <div className="relative flex items-center justify-between p-6 bg-linear-to-br from-black-card to-black-light border border-gray-800 group-hover:border-blue/40 rounded-2xl transition-all duration-500">
                   <div className="flex items-center gap-5">
                     <div className="w-14 h-14 rounded-xl bg-blue/10 flex items-center justify-center text-3xl border border-blue/20">
                       {getCategoryIcon(game.category)}
