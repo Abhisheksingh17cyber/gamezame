@@ -13,11 +13,12 @@ export function GameCard({ game }: GameCardProps) {
   const { deleteGame } = useGameStore()
   const categoryIcon = getCategoryIcon(game.category)
 
-  const handleDownload = () => {
+  const handleDownload = (e: React.MouseEvent) => {
+    e.stopPropagation()
     if (game.download_url) {
-      window.open(game.download_url, '_blank')
       toast.success(`Opening ${game.title} download...`)
     } else {
+      e.preventDefault()
       toast.error('Download not available')
     }
   }
@@ -65,18 +66,33 @@ export function GameCard({ game }: GameCardProps) {
 
           {/* Download Button Overlay with professional design */}
           <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 bg-black/60 backdrop-blur-sm">
-            <motion.button
-              onClick={handleDownload}
-              className="btn-blue text-sm"
-              initial={{ scale: 0.8, opacity: 0 }}
-              whileHover={{ scale: 1.08 }}
-              whileTap={{ scale: 0.95 }}
-              animate={{ scale: 1, opacity: 1 }}
-              transition={{ type: "spring", stiffness: 300, damping: 20 }}
-            >
-              <Download className="w-4 h-4" />
-              <span>Download Now</span>
-            </motion.button>
+            {game.download_url ? (
+              <motion.a
+                href={game.download_url}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={handleDownload}
+                className="btn-blue text-sm"
+                initial={{ scale: 0.8, opacity: 0 }}
+                whileHover={{ scale: 1.08 }}
+                whileTap={{ scale: 0.95 }}
+                animate={{ scale: 1, opacity: 1 }}
+                transition={{ type: "spring", stiffness: 300, damping: 20 }}
+              >
+                <Download className="w-4 h-4" />
+                <span>Download Now</span>
+              </motion.a>
+            ) : (
+              <motion.button
+                onClick={handleDownload}
+                className="btn-blue text-sm opacity-50 cursor-not-allowed"
+                initial={{ scale: 0.8, opacity: 0 }}
+                animate={{ scale: 1, opacity: 0.5 }}
+              >
+                <Download className="w-4 h-4" />
+                <span>Not Available</span>
+              </motion.button>
+            )}
           </div>
         </div>
 

@@ -214,19 +214,13 @@ body {
   background: linear-gradient(135deg, #141414 0%, #0f0f0f 100%);
   border: 1px solid #262626;
   border-radius: 0.75rem;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
+
 .card-premium:hover {
   border-color: #4169e1;
   box-shadow: 0 8px 32px rgba(65, 105, 225, 0.15);
   transform: translateY(-4px);
-}
-  transition: all 0.4s ease;
-}
-.card-premium:hover {
-  border-color: rgba(212, 175, 55, 0.3);
-  transform: translateY(-4px);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
 }
 
 .glass-dark {
