@@ -126,7 +126,25 @@ body {
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   box-shadow: 0 4px 20px rgba(65, 105, 225, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.05);
+  text-decoration: none;
 }
+
+/* Ensure anchor tags with btn-blue work as clickable links */
+a.btn-blue {
+  display: inline-flex !important;
+  pointer-events: auto !important;
+  cursor: pointer !important;
+  text-decoration: none !important;
+  color: #ffffff !important;
+}
+
+a.btn-blue:link,
+a.btn-blue:visited,
+a.btn-blue:active {
+  color: #ffffff !important;
+  text-decoration: none !important;
+}
+
 .btn-blue:hover {
   transform: translateY(-3px);
   box-shadow: 0 12px 40px rgba(65, 105, 225, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.1);

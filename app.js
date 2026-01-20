@@ -378,33 +378,28 @@ function displayGames(games) {
         </div>
     `}).join('')
     
-    // Add event listeners for download buttons
+    // Add event listeners for download buttons - simple and direct
     setTimeout(() => {
         document.querySelectorAll('.download-btn').forEach(btn => {
-            // Remove any existing click handlers that might interfere
-            const newBtn = btn.cloneNode(true);
-            btn.parentNode.replaceChild(newBtn, btn);
+            const href = btn.getAttribute('href')
+            const isDisabled = btn.classList.contains('disabled') || !href || href === '#' || href === '' || href === 'undefined'
             
-            newBtn.addEventListener('click', function(e) {
-                const gameId = this.getAttribute('data-game-id')
-                const href = this.getAttribute('href')
-                
-                // Check if the link is disabled or has no valid URL
-                if (this.classList.contains('disabled') || !href || href === '#' || href === '' || href === 'undefined') {
+            if (isDisabled) {
+                // Only add click prevention for disabled buttons
+                btn.addEventListener('click', function(e) {
                     e.preventDefault()
-                    e.stopPropagation()
                     showToast('Download link not available for this game', 'error')
-                    return false
-                }
-                
-                // Show success toast and track download
-                if (gameId) {
-                    trackDownload(gameId)
-                }
-                
-                // Allow the default anchor behavior (open link in new tab)
-                return true
-            })
+                }, { once: false })
+            } else {
+                // For valid links, just show success message, let link work naturally
+                btn.addEventListener('click', function(e) {
+                    const gameId = this.getAttribute('data-game-id')
+                    if (gameId) {
+                        trackDownload(gameId)
+                    }
+                    // Don't prevent default - let the anchor navigate
+                }, { once: false })
+            }
         })
     }, 100)
 }
